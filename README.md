@@ -2,8 +2,6 @@
 
 **AI-powered health assistant for Ghana** — malaria checker, maternal health triage, digital ANC passport, child growth tracker, CHW visit log, outbreak map, and Mama Circle peer community.
 
-Built by Dr. Theophilus Kwofie · Zappling Learning Inc.
-
 ---
 
 ## Project Structure
