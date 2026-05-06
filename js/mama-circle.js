@@ -1,32 +1,5 @@
 /**
  * AkomaHealth — Mama Circle Community Feature
- * ─────────────────────────────────────────────────────
- * Peer support community for mothers in Ghana.
- *
- * FEATURES:
- *  Anonymous identity    Ghanaian flower name + number (e.g. Abena Rose #247)
- *  6 community circles   Northern Mamas + 5 topic channels
- *  AI health moderator   Claude-powered tips injected into conversations
- *  Safety detection      15 distress keywords → escalate to 112
- *  Milestone cards       9 celebration types (week 28, first steps, etc.)
- *  Reactions             ❤️ 🙏 💪 🎉 😊 💛
- *  CHW / moderator roles Pin messages, verified badges
- *  Backend sync          Supabase polling (8s interval) when signed in
- *  Guest mode            Falls back to seed data when not authenticated
- *
- * BACKEND INTEGRATION:
- *  Tables:   mc_circles, mc_members, mc_messages, mc_reactions, mc_safety_reports
- *  API:      POST /mama-circle/:slug/messages
- *            GET  /mama-circle/:slug/messages
- *            POST /mama-circle/messages/:id/react
- *            PUT  /mama-circle/messages/:id/pin
- *  Schema:   /backend/schema.sql (Mama Circle section)
- *  Server:   /backend/server.js (Mama Circle routes section)
- *
- * ADDING A NEW CIRCLE:
- *  1. Add to CIRCLES object in this file
- *  2. Add a card in index.html (mc-home screen)
- *  3. Add to mc_circles table in Supabase
  */
 
 /* ══════════════════════════════════════════════
