@@ -1,33 +1,14 @@
 /**
- * AkomaHealth — Core App Logic
+ * AkomaHealth — Core Application Logic
  * ─────────────────────────────────────────────────────
- * All 10 clinical and utility modules:
+ * Covers: navigation, SOS, voice input, AI client,
+ * malaria checker, maternal triage, ANC passport,
+ * growth tracker, dosing calculator, CHW log,
+ * outbreak map, health Q&A chat, facility finder.
  *
- *  go(id)              Navigate between screens
- *  openSOS/closeSOS    Emergency SOS bottom sheet
- *  toggleVoice()       Web Speech API for symptom input
- *  claude(sys, msgs)   Anthropic API client
- *                      ↳ Works in claude.ai (no key needed)
- *                      ↳ Standalone: set API_KEY = 'sk-ant-...'
- *  checkMalaria()      Malaria risk assessment
- *  checkMaternal()     Maternal danger sign triage
- *  renderANC()         ANC passport — called by i18n.js on lang change
- *  openAncModal()      Open ANC visit log modal
- *  saveAncVisit()      Save ANC data to localStorage (or Supabase)
- *  checkGrowth()       WHO Z-score child growth calculator
- *  selDrug/calcDose()  Weight-based dosing calculator (4 drugs)
- *  chwTab/logVisit()   CHW visit logger
- *  printRef()          Generate printable referral PDF
- *  renderMap()         Malaria outbreak heatmap
- *  showRegion()        Region detail panel
- *  startChat/sendChat()Health Q&A AI chat
- *  showFac()           Health facility finder
- *  DOMContentLoaded    Initialisation
- *
- * DATA STORAGE:
- *  localStorage is used for ANC passport and CHW history by default.
- *  To persist across devices, wire up the Supabase backend:
- *  see /backend/server.js and /backend/api.js
+ * API Key (standalone only):
+ *   Find: const API_KEY = '';
+ *   Paste your Anthropic key. Leave empty in claude.ai.
  */
 
 const API_KEY = ''; /* ← Add your Anthropic API key: 'sk-ant-...' */
@@ -351,3 +332,8 @@ document.addEventListener('DOMContentLoaded',()=>{
   const mnEl = document.getElementById('my-anon-name');
   if(mnEl) mnEl.textContent = 'You are: ' + MY_NAME;
 });
+
+function go(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
