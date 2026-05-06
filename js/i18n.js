@@ -1,19 +1,6 @@
 /**
- * AkomaHealth — i18n (Internationalisation)
- * ─────────────────────────────────────────────────────
+ * AkomaHealth — i18n Translations
  * Languages: English (en) | Twi (tw) | Hausa (ha)
- *
- * ADDING A NEW LANGUAGE:
- *  1. Copy the full "en" block in TRANSLATIONS
- *  2. Add a new key e.g. "ga" for Ga language  
- *  3. Translate every value (205 strings)
- *  4. Add a <button class="lb" onclick="switchLang('ga',this)"> in index.html
- *
- * HOW IT WORKS:
- *  - Every translatable HTML element has a data-i18n="key" attribute
- *  - applyLang(lang) does a single DOM pass and updates all of them
- *  - Placeholders use data-i18n-placeholder="key"
- *  - renderANC() is re-run on language change so ANC badges translate too
  */
 
 /* ══════════════════════════════════════════════
