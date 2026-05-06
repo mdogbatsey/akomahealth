@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="AkomaHealth — AI-powered health assistant for Ghana. Malaria checker, maternal health triage, ANC passport, child growth tracker, CHW tools, and Mama Circle community support."/>
+  <meta name="theme-color" content="#1B4332"/>
+  <title>AkomaHealth — Ghana Health Assistant</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <!-- App Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css"/>
+</head>
+<body>
+
+
+<div class="app">
+
+<!-- ═══ ONBOARDING ═══ -->
+<div class="screen active" id="onboarding">
+  <div class="ob-hdr">
+    <div class="ob-logo"><svg viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="2.5" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div data-i18n="ob_title">
+    <div class="ob-title">AkomaHealth</div data-i18n="ob_sub">
+    <div class="ob-sub">Ghana's AI-powered health companion</div>
+  </div>
+  <div class="ob-body">
+    <div class="ghs-badge">
+      <div class="ghs-seal"><svg viewBox="0 0 24 24" fill="none" stroke="#D8F3DC" stroke-width="2.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div data-i18n="ob_ghs">
+      <div class="ghs-txt">Aligned with Ghana Health Service protocols &amp; WHO guidelines 2024</div>
+    </div>
+    <div class="ob-sec">
+      <div class="ob-sec-t">What this app does</div>
+      <div class="feat-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span>Malaria &amp; maternal health AI risk assessment</span></div>
+      <div class="feat-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span>Digital ANC passport — tracks all 8 pregnancy visits</span></div>
+      <div class="feat-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span>Child growth tracking with WHO Z-score standards</span></div>
+      <div class="feat-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span>Weight-based medication dosing for CHWs</span></div>
+      <div class="feat-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span>CHW visit log with printable referral generator</span></div>
+      <div class="feat-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span>Live malaria outbreak risk map — all 16 regions</span></div>
+      <div class="feat-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg><span>AI health Q&amp;A in English, Twi &amp; Hausa with voice input</span></div>
+    </div>
+    <div class="disc-box"><p><strong>Medical disclaimer:</strong> AkomaHealth is a health information and screening tool only. It does not replace diagnosis or treatment by a qualified health professional. Always consult a nurse, midwife, or doctor for medical decisions. In an emergency, call <strong>112</strong> immediately.</p></div>
+    <div class="ob-sec">
+      <div class="ob-sec-t">Choose your language</div>
+      <div class="lang-grid">
+        <button class="lang-opt sel" onclick="obLang('en',this)"><span class="flag">🇬🇧</span><span class="lname">English</span></button>
+        <button class="lang-opt" onclick="obLang('tw',this)"><span class="flag">🇬🇭</span><span class="lname">Twi</span></button>
+        <button class="lang-opt" onclick="obLang('ha',this)"><span class="flag">🇬🇭</span><span class="lname">Hausa</span></button>
+      </div>
+    </div data-i18n="ob_begin">
+    <button class="begin-btn" onclick="beginApp()">Get Started →</button>
+  </div>
+</div>
+
+<!-- ═══ HOME ═══ -->
+<div class="screen" id="home">
+  <div class="emg" onclick="openSOS()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg data-i18n="emergency_bar" data-i18n-html="1">
+    <span id="emg-txt">Emergency? Tap to call <strong>112</strong> or <strong>0800 111 222</strong></span>
+  </div>
+  <div class="home-hdr">
+    <div class="logo-row">
+      <div class="logo-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="2.5" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+      <div><div class="app-nm">AkomaHealth</div data-i18n="app_sub"><div class="app-sb" id="h-sub">Health assistant for Ghana</div></div>
+    </div data-i18n="home_greet">
+    <div class="greet" id="h-greet">Akwaaba! How can we help you today?</div>
+    <div class="lr">
+      <button class="lb on" onclick="switchLang('en',this)">English</button>
+      <button class="lb" onclick="switchLang('tw',this)">Twi</button>
+      <button class="lb" onclick="switchLang('ha',this)">Hausa</button>
+    </div>
+  </div>
+  <div class="mgrid">
+    <button class="mc mal" onclick="go('malaria')">
+      <div class="mc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#3D2000" stroke-width="2.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="mc-t" data-i18n="mod_mal_t">Malaria Checker</div><div class="mc-d" data-i18n="mod_mal_d">AI risk + voice input</div>
+    </button>
+    <button class="mc mat" onclick="go('maternal')">
+      <div class="mc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+      <div class="mc-t" data-i18n="mod_mat_t">Maternal &amp; Child</div><div class="mc-d" data-i18n="mod_mat_d">Danger sign triage</div>
+    </button>
+    <button class="mc anc" onclick="go('anc')">
+      <div class="mc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+      <div class="mc-t" data-i18n="mod_anc_t">ANC Passport</div><div class="mc-d" data-i18n="mod_anc_d">Digital pregnancy tracker</div>
+    </button>
+    <button class="mc grw" onclick="go('growth')">
+      <div class="mc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+      <div class="mc-t" data-i18n="mod_grw_t">Growth Tracker</div><div class="mc-d" data-i18n="mod_grw_d">WHO child standards</div>
+    </button>
+    <button class="mc dos" onclick="go('dosing')">
+      <div class="mc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg></div>
+      <div class="mc-t" data-i18n="mod_dos_t">Dosing Calc</div><div class="mc-d" data-i18n="mod_dos_d">Weight-based drug doses</div>
+    </button>
+    <button class="mc chw" onclick="go('chw')">
+      <div class="mc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+      <div class="mc-t" data-i18n="mod_chw_t">CHW Log</div><div class="mc-d" data-i18n="mod_chw_d">Visits &amp; referrals</div>
+    </button>
+    <button class="mc mp" onclick="go('map')">
+      <div class="mc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg></div>
+      <div class="mc-t" data-i18n="mod_map_t">Outbreak Map</div><div class="mc-d" data-i18n="mod_map_d">Malaria risk by region</div>
+    </button>
+    <button class="mc cht" onclick="go('chat')">
+      <div class="mc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+      <div class="mc-t" data-i18n="mod_cht_t">Health Q&amp;A</div><div class="mc-d" data-i18n="mod_cht_d">Ask in your language</div>
+    </button>
+    <button class="mc fac" onclick="go('facility')" style="grid-column:1/-1;flex-direction:row;align-items:center;gap:10px">
+      <div class="mc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div><div class="mc-t" data-i18n="mod_fac_t">Find Health Facility</div><div class="mc-d">All 16 regions — CHPS, clinics &amp; hospitals</div></div>
+    </button>
+    <button class="mc prv" onclick="go('prevention')" style="grid-column:1/-1;flex-direction:row;align-items:center;gap:10px">
+      <div class="mc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div>
+      <div><div class="mc-t" data-i18n="mod_prv_t">Prevention Tips</div><div class="mc-d">Evidence-based malaria, maternal &amp; child health guidance</div></div>
+    </button>
+  </div>
+    <button class="mc" style="background:#F3E5F5;border:1.5px solid #8E24AA;grid-column:1/-1;flex-direction:row;align-items:center;gap:10px" onclick="go('mc-home')">
+      <div class="mc-ic" style="background:linear-gradient(135deg,#7B1FA2,#C2185B);flex-shrink:0;width:38px;height:38px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round">
+          <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>
+        </svg>
+      </div>
+      <div>
+        <div class="mc-t" style="color:#4A148C;font-size:13.5px" data-i18n="mod_mc_t">Mama Circle <span id="mc-notif" style="display:none;background:#C2185B;color:#fff;border-radius:10px;padding:1px 7px;font-size:10px;font-weight:700;margin-left:5px">3 new</span></div>
+        <div class="mc-d" data-i18n="mod_mc_d">Peer support community for mothers · Anonymous · CHW-moderated</div>
+      </div>
+    </button data-i18n="footer">
+  <div class="fn">AkomaHealth v5 · AI-powered · Ghana Health Service aligned · Not a substitute for professional care</div>
+</div>
+
+<!-- ═══ MALARIA ═══ -->
+<div class="screen" id="malaria">
+  <div class="hdr" style="background:#7B4F00"><button class="bk" onclick="go('home')">‹</button><div data-i18n="mal_title"><div class="ht">Malaria Checker</div data-i18n="mal_sub"><div class="hs">AI symptom assessment + voice input</div></div></div>
+  <div class="fb mf">
+    <div class="fs">
+      <label class="fl">Your age group</label>
+      <select class="fi" id="m-age"><option value="" data-i18n="mal_age_p">Select age group</option><option data-i18n="mal_age_u5">Under 5 years</option><option data-i18n="mal_age_5">5–17 years</option><option data-i18n="mal_age_18">18–60 years</option><option data-i18n="mal_age_60">Over 60 years</option></select>
+    </div>
+    <div class="fs">
+      <label class="fl" data-i18n="mal_preg_lbl">Are you pregnant?</label>
+      <select class="fi" id="m-preg"><option value="" data-i18n="grw_sex_p">Select</option><option>No</option><option>Yes</option><option>Not sure</option></select>
+    </div>
+    <div class="fs">
+      <label class="fl">Select your symptoms</label>
+      <div class="vrow">
+        <button class="vbtn" id="m-voice-btn" onclick="toggleVoice('m-voice-btn','malaria-voice-out')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+          Speak symptoms
+        </button>
+        <div id="malaria-voice-out" style="font-size:11.5px;color:#52B788;font-weight:600;align-self:center"></div>
+      </div>
+      <div class="sg">
+        <button class="chip" onclick="tc(this)" data-i18n="mal_s1">Fever</button>
+        <button class="chip" onclick="tc(this)" data-i18n="mal_s2">Chills / Shivering</button>
+        <button class="chip" onclick="tc(this)" data-i18n="mal_s3">Headache</button>
+        <button class="chip" onclick="tc(this)" data-i18n="mal_s4">Muscle pain</button>
+        <button class="chip" onclick="tc(this)" data-i18n="mal_s5">Vomiting</button>
+        <button class="chip" onclick="tc(this)" data-i18n="mal_s6">Fatigue</button>
+        <button class="chip" onclick="tc(this)" data-i18n="mal_s7">Sweating</button>
+        <button class="chip" onclick="tc(this)" data-i18n="mal_s8">Loss of appetite</button>
+        <button class="chip" onclick="tc(this)" data-i18n="mal_s9">Confusion</button>
+        <button class="chip" onclick="tc(this)" data-i18n="mal_s10">Yellow eyes</button>
+      </div>
+    </div>
+    <div class="fs">
+      <label class="fl">Duration of symptoms</label>
+      <select class="fi" id="m-dur"><option value="" data-i18n="mal_dur_p">Select duration</option><option data-i18n="mal_dur_1">Less than 24 hours</option><option data-i18n="mal_dur_2">1–3 days</option><option data-i18n="mal_dur_3">4–7 days</option><option data-i18n="mal_dur_4">More than 1 week</option></select>
+    </div>
+    <div class="fs">
+      <label class="fl">Your region in Ghana</label>
+      <select class="fi" id="m-region"><option value="" data-i18n="mal_reg_p">Select region</option><option>Northern Region</option><option>Upper East Region</option><option>Upper West Region</option><option>Savannah Region</option><option>North East Region</option><option>Oti Region</option><option>Bono East Region</option><option>Bono Region</option><option>Ahafo Region</option><option>Ashanti Region</option><option>Eastern Region</option><option>Greater Accra Region</option><option>Central Region</option><option>Western Region</option><option>Western North Region</option><option>Volta Region</option></select>
+    </div data-i18n="mal_btn">
+    <button class="sbtn" style="background:#F9A825;color:#3D2000" id="m-btn" onclick="checkMalaria()">Check Malaria Risk →</button>
+    <div id="m-load" style="display:none"><div class="ldots"><div class="ld"></div><div class="ld"></div><div class="ld"></div></div></div>
+    <div id="m-result"></div>
+  </div>
+  <div class="disc">This tool is for information only. Always visit your nearest CHPS compound for a Rapid Diagnostic Test (RDT) if you suspect malaria.</div>
+</div>
+
+<!-- ═══ MATERNAL ═══ -->
+<div class="screen" id="maternal">
+  <div class="hdr" style="background:#1B4332"><button class="bk" onclick="go('home')">‹</button><div data-i18n="mat_title"><div class="ht">Maternal &amp; Child Health</div data-i18n="mat_sub"><div class="hs">Danger sign detection · Emergency triage</div></div></div>
+  <div class="fb">
+    <div class="fs"><label class="fl">Who is this for?</label>
+      <select class="fi" id="mat-who"><option value="">Select</option><option data-i18n="mat_who_1">Pregnant woman</option><option data-i18n="mat_who_2">Postpartum mother (within 6 weeks)</option><option data-i18n="mat_who_3">Infant or young child</option><option data-i18n="mat_who_4">General information</option></select>
+    </div>
+    <div class="fs"><label class="fl">Pregnancy stage (if pregnant)</label>
+      <select class="fi" id="mat-stage"><option value="" data-i18n="mat_stage_p">Select or skip</option><option data-i18n="mat_stage_1">First trimester (1–3 months)</option><option data-i18n="mat_stage_2">Second trimester (4–6 months)</option><option data-i18n="mat_stage_3">Third trimester (7–9 months)</option><option data-i18n="mat_stage_4">Not pregnant</option></select>
+    </div>
+    <div class="fs"><label class="fl">Select any warning signs</label>
+      <div class="sg">
+        <button class="chip" onclick="tc(this)" data-i18n="mat_s1">Heavy bleeding</button>
+        <button class="chip" onclick="tc(this)" data-i18n="mat_s2">Severe headache</button>
+        <button class="chip" onclick="tc(this)" data-i18n="mat_s3">Blurred vision</button>
+        <button class="chip" onclick="tc(this)" data-i18n="mat_s4">Swollen face/hands</button>
+        <button class="chip" onclick="tc(this)" data-i18n="mat_s5">Baby not moving</button>
+        <button class="chip" onclick="tc(this)" data-i18n="mat_s6">Fever over 38°C</button>
+        <button class="chip" onclick="tc(this)" data-i18n="mat_s7">Convulsions</button>
+        <button class="chip" onclick="tc(this)" data-i18n="mat_s8">Difficulty breathing</button>
+        <button class="chip" onclick="tc(this)" data-i18n="mat_s9">Abdominal pain</button>
+        <button class="chip" onclick="tc(this)" data-i18n="mat_s10">Water breaking early</button>
+      </div>
+    </div>
+    <div class="fs"><label class="fl">Describe your concern (optional)</label>
+      <textarea class="fi" id="mat-concern" rows="2" placeholder="e.g. I have not felt the baby move since yesterday..." data-i18n-placeholder="mat_concern_p"></textarea>
+    </div data-i18n="mat_btn">
+    <button class="sbtn" style="background:#1B4332;color:#fff" id="mat-btn" onclick="checkMaternal()">Get Guidance →</button>
+    <div id="mat-load" style="display:none"><div class="ldots"><div class="ld"></div><div class="ld"></div><div class="ld"></div></div></div>
+    <div id="mat-result"></div>
+  </div>
+  <div class="disc">If you have any emergency warning sign, go to the nearest health facility immediately or call <strong>112</strong>.</div>
+</div>
+
+<!-- ═══ ANC PASSPORT ═══ -->
+<div class="screen" id="anc">
+  <div class="hdr" style="background:#C2185B"><button class="bk" onclick="go('home')">‹</button><div data-i18n="anc_title"><div class="ht">ANC Passport</div data-i18n="anc_sub"><div class="hs">Digital antenatal care tracker · 8 visits</div></div></div>
+  <div class="anc-body">
+    <div class="anc-intro"><p>📋 Your digital ANC card tracks all 8 recommended pregnancy visits. Tap any visit to log the date and notes. Show this to any health worker at any facility.</p></div>
+    <div class="anc-tl" id="anc-timeline"></div>
+  </div>
+  <div class="anc-modal" id="anc-modal">
+    <div class="anc-sheet">
+      <div class="anc-sh-t"><span id="anc-modal-title">Log Visit</span><button onclick="closeAncModal()">×</button></div>
+      <div class="fs"><label class="fl">Date of visit</label><input class="fi" type="date" id="anc-date"/></div>
+      <div class="fs"><label class="fl">Health facility visited</label><input class="fi" type="text" id="anc-facility" placeholder="e.g. Tamale Teaching Hospital"/ data-i18n-placeholder="anc_modal_fac_p"></div>
+      <div class="fs"><label class="fl">Health worker notes / observations</label><textarea class="fi" id="anc-notes" rows="3" placeholder="e.g. BP normal, iron tablets prescribed..." data-i18n-placeholder="anc_modal_notes_p"></textarea></div>
+      <div class="fs"><label class="fl">Weight at this visit (kg)</label><input class="fi" type="number" id="anc-weight" placeholder="e.g. 65"/ data-i18n-placeholder="anc_modal_weight_p"></div data-i18n="anc_save">
+      <button class="anc-save" onclick="saveAncVisit()">Save Visit Record ✓</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ GROWTH TRACKER ═══ -->
+<div class="screen" id="growth">
+  <div class="hdr" style="background:#4A148C"><button class="bk" onclick="go('home')">‹</button><div data-i18n="grw_title"><div class="ht">Child Growth Tracker</div data-i18n="grw_sub"><div class="hs">WHO growth standards · ages 0–60 months</div></div></div>
+  <div class="fb">
+    <div class="fs"><label class="fl">Child sex</label>
+      <select class="fi" id="g-sex"><option value="">Select</option><option value="M" data-i18n="grw_sex_m">Boy</option><option value="F" data-i18n="grw_sex_f">Girl</option></select>
+    </div>
+    <div class="fs"><label class="fl">Age in months (0–60)</label>
+      <input class="fi" type="number" id="g-age" min="0" max="60" placeholder="e.g. 18 (= 1 year 6 months)"/ data-i18n-placeholder="grw_age_p">
+    </div>
+    <div class="fs"><label class="fl">Weight (kg)</label>
+      <input class="fi" type="number" id="g-weight" step="0.1" min="1" max="30" placeholder="e.g. 9.5"/ data-i18n-placeholder="grw_wt_p">
+    </div>
+    <div class="fs"><label class="fl">Height / Length (cm)</label>
+      <input class="fi" type="number" id="g-height" step="0.1" min="40" max="130" placeholder="e.g. 75.0"/ data-i18n-placeholder="grw_ht_p">
+    </div data-i18n="grw_btn">
+    <button class="sbtn" style="background:#8E24AA;color:#fff" onclick="checkGrowth()">Calculate Growth Status</button>
+    <div id="g-result" style="margin-top:8px"></div>
+  </div>
+  <div class="disc">Growth assessment is a screening tool only. Consult a trained health worker for clinical management of malnutrition.</div>
+</div>
+
+<!-- ═══ DOSING CALCULATOR ═══ -->
+<div class="screen" id="dosing">
+  <div class="hdr" style="background:#2E7D32"><button class="bk" onclick="go('home')">‹</button><div data-i18n="dos_title"><div class="ht">Dosing Calculator</div data-i18n="dos_sub"><div class="hs">Weight-based doses · GHS protocols</div></div></div>
+  <div class="dos-body">
+    <div class="drug-tabs">
+      <button class="dt on" onclick="selDrug('art',this)">Artemether-Lumefantrine</button>
+      <button class="dt" onclick="selDrug('para',this)">Paracetamol</button>
+      <button class="dt" onclick="selDrug('amox',this)">Amoxicillin</button>
+      <button class="dt" onclick="selDrug('cot',this)">Co-trimoxazole</button>
+    </div>
+    <div class="fs"><label class="fl">Patient weight (kg)</label>
+      <input class="fi" type="number" id="d-weight" step="0.5" min="3" max="100" placeholder="e.g. 12.5" oninput="calcDose()"/ data-i18n-placeholder="dos_wt_p">
+    </div>
+    <div class="fs"><label class="fl">Patient age group</label>
+      <select class="fi" id="d-age" onchange="calcDose()">
+        <option value="">Select age group</option>
+        <option value="infant" data-i18n="dos_age_inf">Infant (2–11 months)</option>
+        <option value="child" data-i18n="dos_age_ch">Child (1–12 years)</option>
+        <option value="adult" data-i18n="dos_age_ad">Adult (12+ years)</option>
+      </select>
+    </div>
+    <div id="dose-out"></div>
+    <div style="margin-top:1rem;background:#E8F5E9;border:1.5px solid #A5D6A7;border-radius:11px;padding:.85rem">
+      <div style="font-size:11.5px;color:#1B5E20;font-weight:700;margin-bottom:5px;text-transform:uppercase;letter-spacing:0.5px">⚕ CHW Reminder</div>
+      <div style="font-size:12px;color:#2E7D32;line-height:1.6;font-weight:500">Always confirm weight before dosing. If in doubt, refer to the nearest health facility. These are standard first-line doses per GHS CHPS protocols.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CHW VISIT LOG ═══ -->
+<div class="screen" id="chw">
+  <div class="hdr" style="background:#E65100"><button class="bk" onclick="go('home')">‹</button><div data-i18n="chw_title"><div class="ht">CHW Visit Log</div data-i18n="chw_sub"><div class="hs">Record visits · Generate referrals</div></div></div>
+  <div class="chw-body">
+    <div class="chw-tabs">
+      <button class="cwt on" onclick="chwTab('log',this)" data-i18n="chw_tab_log">Log New Visit</button>
+      <button class="cwt" onclick="chwTab('history',this)" data-i18n="chw_tab_hist">Visit History</button>
+    </div>
+    <div class="cwpanel on" id="cwp-log">
+      <div class="fs"><label class="fl">Patient name</label><input class="fi" id="chw-name" placeholder="Full name"/ data-i18n-placeholder="chw_name_p"></div>
+      <div class="fs"><label class="fl">Age &amp; sex</label><input class="fi" id="chw-age" placeholder="e.g. 3 years, Female"/ data-i18n-placeholder="chw_age_p"></div>
+      <div class="fs"><label class="fl">Community / Village</label><input class="fi" id="chw-village" placeholder="e.g. Tolon, Northern Region"/ data-i18n-placeholder="chw_vil_p"></div>
+      <div class="fs"><label class="fl">Chief complaint</label><input class="fi" id="chw-complaint" placeholder="e.g. Fever for 2 days"/ data-i18n-placeholder="chw_comp_p"></div>
+      <div class="fs"><label class="fl">Findings &amp; action taken</label><textarea class="fi" id="chw-findings" rows="2" placeholder="e.g. Temperature 38.5°C, RDT positive for malaria, artemether given..." data-i18n-placeholder="chw_find_p"></textarea></div>
+      <div class="fs"><label class="fl">Referral needed?</label>
+        <select class="fi" id="chw-ref"><option value="no" data-i18n="chw_ref_no">No — managed at community level</option><option value="yes" data-i18n="chw_ref_yes">Yes — refer to health facility</option><option value="urgent" data-i18n="chw_ref_urg">Urgent — immediate referral needed</option></select>
+      </div>
+      <div class="fs" id="chw-ref-facility-row"><label class="fl">Refer to which facility?</label><input class="fi" id="chw-ref-fac" placeholder="e.g. Tamale Teaching Hospital"/ data-i18n-placeholder="chw_ref_fac_p"></div data-i18n="chw_save_btn">
+      <button class="sbtn" style="background:#E65100;color:#fff" onclick="logVisit()">Save Visit Record</button>
+    </div>
+    <div class="cwpanel" id="cwp-history">
+      <div id="chw-history-list"><div style="font-size:13px;color:#999;text-align:center;padding:2rem;font-weight:500">No visits logged yet.<br/>Log your first visit using the form.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ OUTBREAK MAP ═══ -->
+<div class="screen" id="map">
+  <div class="hdr" style="background:#00695C"><button class="bk" onclick="go('home')">‹</button><div data-i18n="map_title"><div class="ht">Malaria Outbreak Map</div data-i18n="map_sub"><div class="hs">Risk levels · All 16 Ghana regions</div></div></div>
+  <div class="map-body">
+    <div class="map-leg">
+      <div class="ml"><div class="ml-d" style="background:#C62828"></div data-i18n="map_legend_h">High Risk</div>
+      <div class="ml"><div class="ml-d" style="background:#F9A825"></div data-i18n="map_legend_m">Medium Risk</div>
+      <div class="ml"><div class="ml-d" style="background:#52B788"></div data-i18n="map_legend_l">Low Risk</div>
+    </div data-i18n="map_updated">
+    <div class="map-updated">Last updated: April 2025 · Source: GHS Malaria Programme</div>
+    <div class="ghana-map" id="ghana-map"></div>
+    <div class="map-detail" id="map-detail"></div>
+  </div>
+</div>
+
+<!-- ═══ HEALTH CHAT ═══ -->
+<div class="screen" id="chat">
+  <div class="hdr" style="background:#0D47A1"><button class="bk" onclick="go('home')">‹</button><div data-i18n="chat_title"><div class="ht">Health Q&amp;A</div data-i18n="chat_sub"><div class="hs">AI assistant · Responds in your language</div></div></div>
+  <div class="chat-body">
+    <div class="chat-msgs" id="chat-msgs" data-i18n="chat_welcome">
+      <div class="msg a" id="chat-welcome">Akwaaba! I am AkomaHealth, your AI health assistant. Ask me any health question — about symptoms, medications, pregnancy, child care, or disease prevention in Ghana. I will answer in your chosen language.</div>
+    </div>
+    <div class="chat-starters" id="chat-starters" data-i18n="chat_starter_lbl">
+      <div class="cs-lbl">Try asking</div>
+      <div class="cs-chips">
+        <button class="scc" onclick="startChat(this)" data-i18n="chat_sc1">Signs of malaria in children?</button>
+        <button class="scc" onclick="startChat(this)" data-i18n="chat_sc2">When should I attend ANC?</button>
+        <button class="scc" onclick="startChat(this)" data-i18n="chat_sc3">Safe to breastfeed with malaria?</button>
+        <button class="scc" onclick="startChat(this)" data-i18n="chat_sc4">Child has diarrhoea — what to do?</button>
+      </div>
+    </div>
+    <div class="chat-in-row">
+      <textarea class="chat-in" id="chat-in" rows="1" placeholder="Type your health question..." data-i18n-placeholder="chat_placeholder"></textarea>
+      <button class="csb" id="chat-sb" onclick="sendChat()"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FACILITY ═══ -->
+<div class="screen" id="facility">
+  <div class="hdr" style="background:#185FA5"><button class="bk" onclick="go('home')">‹</button><div data-i18n="fac_title"><div class="ht">Find Health Facility</div data-i18n="fac_sub"><div class="hs">All 16 regions · CHPS, clinics &amp; hospitals</div></div></div>
+  <div class="fac-body" data-i18n="fac_reg_lbl">
+    <label class="fl" style="margin-bottom:6px;display:block">Select your region</label>
+    <select class="reg-sel" onchange="showFac(this.value)">
+      <option value="" data-i18n="fac_reg_p">-- Choose region --</option>
+      <option value="northern">Northern Region</option><option value="upper-east">Upper East Region</option>
+      <option value="upper-west">Upper West Region</option><option value="savannah">Savannah Region</option>
+      <option value="north-east">North East Region</option><option value="oti">Oti Region</option>
+      <option value="bono-east">Bono East Region</option><option value="bono">Bono Region</option>
+      <option value="ahafo">Ahafo Region</option><option value="ashanti">Ashanti Region</option>
+      <option value="eastern">Eastern Region</option><option value="accra">Greater Accra Region</option>
+      <option value="central">Central Region</option><option value="western">Western Region</option>
+      <option value="western-north">Western North Region</option><option value="volta">Volta Region</option>
+    </select>
+    <div id="fac-list"></div>
+  </div>
+</div>
+
+<!-- ═══ PREVENTION ═══ -->
+<div class="screen" id="prevention">
+  <div class="hdr" style="background:#880E4F"><button class="bk" onclick="go('home')">‹</button><div data-i18n="prv_title"><div class="ht">Prevention Tips</div data-i18n="prv_sub"><div class="hs">Evidence-based · GHS &amp; WHO guidelines</div></div></div>
+  <div class="prev-body">
+    <div class="pcat" data-i18n="prv_cat1">Malaria Prevention</div>
+    <div class="ptip"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg data-i18n="prv_m1">Sleep under an insecticide-treated bednet (ITN) every night — especially children under 5 and pregnant women</div>
+    <div class="ptip"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg data-i18n="prv_m2">Remove standing water — old tyres, pots, gutters — where mosquitoes breed near your home</div>
+    <div class="ptip"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg data-i18n="prv_m3">Use indoor residual spraying (IRS) when offered by your district health team</div>
+    <div class="ptip"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg data-i18n="prv_m4">Pregnant women: take IPTp-SP at every ANC visit from the second trimester onwards</div>
+    <div class="ptip"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg data-i18n="prv_m5">Children 5–17 months: malaria vaccine (R21/Matrix-M) now available — ask your CHPS compound</div>
+    <div class="pcat" data-i18n="prv_cat2">Maternal Health</div>
+    <div class="ptip"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg data-i18n="prv_mat1">Attend at least 8 ANC visits during pregnancy — the first before 12 weeks</div>
+    <div class="ptip"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg data-i18n="prv_mat2">Take iron and folic acid tablets daily throughout pregnancy</div>
+    <div class="ptip"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg data-i18n="prv_mat3">Deliver at a health facility with a skilled birth attendant — not at home alone</div>
+    <div class="ptip"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg data-i18n="prv_mat4">Breastfeed exclusively for the first 6 months — protects babies from infection</div>
+    <div class="pcat" data-i18n="prv_cat3">Child Health</div>
+    <div class="ptip"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg data-i18n="prv_ch1">Follow the Ghana Immunisation Schedule — vaccines protect against measles, polio, meningitis and more</div>
+    <div class="ptip"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg data-i18n="prv_ch2">Wash hands with soap before feeding children and after using the toilet</div>
+    <div class="ptip"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg data-i18n="prv_ch3">Weigh your child monthly at the CHPS compound to monitor growth and catch malnutrition early</div>
+  </div>
+</div>
+
+<!-- ═══ MAMA CIRCLE SCREENS ═══ -->
+<!-- ═══ HOME — CIRCLE DIRECTORY ═══ -->
+<div class="screen active" id="mc-home">
+  <div class="mc-home-hdr">
+    <div class="mc-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round">
+        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+        <path d="M16 3.13a4 4 0 010 7.75"/>
+      </svg>
+    </div>
+    <div class="mc-home-title">Mama Circle</div>
+    <div class="mc-home-sub">A safe space for mothers &amp; mothers-to-be in Ghana. Share, support, and heal together.</div>
+    <div class="my-name-badge" onclick="showNameInfo()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 10-16 0"/></svg>
+      <span id="my-anon-name">You are: Abena Flower #247</span>
+    </div>
+  </div>
+  <div class="mc-body">
+    <div class="section-lbl">Your region group</div>
+    <div class="region-card" onclick="mcEnterCircle('northern')">
+      <div class="rc-top">
+        <div class="rc-name">Northern Mamas Circle</div>
+        <div class="rc-badge new">3 new</div>
+      </div>
+      <div class="rc-meta">
+        <span>👩 247 members</span>
+        <span>💬 Active now</span>
+      </div>
+      <div class="rc-preview"><strong>Akosua F.</strong>: My baby finally started kicking! I was so worried but the CHW said it's normal at 22 weeks...</div>
+    </div>
+
+    <div class="section-lbl">All topic channels</div>
+    <div class="region-card" onclick="mcEnterCircle('pregnancy')">
+      <div class="rc-top">
+        <div class="rc-name">🤰 Pregnancy Journey</div>
+        <div class="rc-badge active">12 online</div>
+      </div>
+      <div class="rc-meta"><span>👩 1,024 members</span><span>🌍 All regions</span></div>
+      <div class="rc-preview"><strong>AkomaHealth AI</strong>: Tip for week 28 mamas — this is a great time to start counting baby kicks. 10 kicks in 2 hours is a healthy sign!</div>
+    </div>
+    <div class="region-card" onclick="mcEnterCircle('feeding')">
+      <div class="rc-top">
+        <div class="rc-name">🍼 Feeding &amp; Nutrition</div>
+        <div class="rc-badge active">8 online</div>
+      </div>
+      <div class="rc-meta"><span>👩 876 members</span><span>🌍 All regions</span></div>
+      <div class="rc-preview"><strong>CHW Abena</strong>: Remember — exclusive breastfeeding for the first 6 months gives your baby the best start. No water, no porridge yet.</div>
+    </div>
+    <div class="region-card" onclick="mcEnterCircle('malaria')">
+      <div class="rc-top">
+        <div class="rc-name">🦟 Malaria &amp; Fever</div>
+        <div class="rc-badge new">5 new</div>
+      </div>
+      <div class="rc-meta"><span>👩 654 members</span><span>🌍 All regions</span></div>
+      <div class="rc-preview"><strong>Gifty O.</strong>: My 2-year-old had fever last night. I used the AkomaHealth checker and it said medium risk so I took her to the CHPS this morning...</div>
+    </div>
+    <div class="region-card" onclick="mcEnterCircle('mental')">
+      <div class="rc-top">
+        <div class="rc-name">💛 Mental Health &amp; Wellbeing</div>
+        <div class="rc-badge active">6 online</div>
+      </div>
+      <div class="rc-meta"><span>👩 432 members</span><span>🌍 All regions</span></div>
+      <div class="rc-preview"><strong>Akomahealth AI</strong>: You are not alone. Feeling anxious during pregnancy is very common. Let's talk about it...</div>
+    </div>
+    <div class="region-card" onclick="mcEnterCircle('milestones')">
+      <div class="rc-top">
+        <div class="rc-name">🎉 Baby Milestones</div>
+        <div class="rc-badge active">24 online</div>
+      </div>
+      <div class="rc-meta"><span>👩 1,247 members</span><span>🌍 All regions</span></div>
+      <div class="rc-preview"><strong>Efua K.</strong> just celebrated: Baby's first steps at 11 months! 🎊</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ RULES SCREEN ═══ -->
+<div class="screen" id="mc-rules">
+  <div class="mc-hdr">
+    <button class="bk" onclick="go('mc-home')">‹</button>
+    <div class="mc-hdr-txt"><div class="ht">Community Guidelines</div><div class="hs">Please read before joining</div></div>
+  </div>
+  <div class="rules-body">
+    <div class="anon-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 10-16 0"/></svg>
+      <p>You are anonymous. Your real name is never shown. You appear as a Ghanaian flower name + number (e.g. "Abena Flower #247"). Only you know it's you.</p>
+    </div>
+    <div class="rules-card">
+      <div class="rules-card-t">This is a safe space</div>
+      <div class="rule-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Be kind. Every mama here is on her own journey.</div>
+      <div class="rule-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>No medical diagnoses. Share experiences — not prescriptions.</div>
+      <div class="rule-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Respect privacy. What is shared here, stays here.</div>
+      <div class="rule-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>No selling or advertising of any products.</div>
+      <div class="rule-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>CHW moderators are here to help — listen to them.</div>
+    </div>
+    <div class="rules-card" style="background:#E8F5E9;border-color:#A5D6A7">
+      <div class="rules-card-t" style="color:#1B5E20">AI Health Moderator</div>
+      <div class="rule-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" style="stroke:#1B5E20"><polyline points="20 6 9 17 4 12"/></svg>Our AI automatically detects health emergencies and shares resources immediately.</div>
+      <div class="rule-row"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" style="stroke:#1B5E20"><polyline points="20 6 9 17 4 12"/></svg>The AI occasionally shares evidence-based health tips relevant to the conversation topic.</div>
+    </div>
+    <button class="join-btn" onclick="mcJoinCircle()">I understand — Join the Circle ✓</button>
+  </div>
+</div>
+
+<!-- ═══ CHAT SCREEN ═══ -->
+<div class="screen" id="mc-chat">
+  <div class="mc-hdr">
+    <button class="bk" onclick="go('mc-home')">‹</button>
+    <div class="mc-hdr-txt">
+      <div class="ht" id="chat-title">Northern Mamas Circle</div>
+      <div class="hs" id="chat-sub">247 members · 12 online</div>
+    </div>
+    <div class="online-badge" onclick="openMembers()">
+      <div class="online-dot"></div>
+      <span id="online-count">12</span>
+    </div>
+  </div>
+
+  <!-- Topic filter -->
+  <div style="padding:8px 1.25rem 4px;border-bottom:0.5px solid #F3E5F5">
+    <div class="topics-row" id="topic-row">
+      <button class="topic-chip active" onclick="filterTopic('all',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>All
+      </button>
+      <button class="topic-chip" onclick="filterTopic('pregnancy',this)">🤰 Pregnancy</button>
+      <button class="topic-chip" onclick="filterTopic('feeding',this)">🍼 Feeding</button>
+      <button class="topic-chip" onclick="filterTopic('malaria',this)">🦟 Malaria</button>
+      <button class="topic-chip" onclick="filterTopic('mental',this)">💛 Wellbeing</button>
+      <button class="topic-chip" onclick="filterTopic('milestone',this)">🎉 Milestones</button>
+    </div>
+  </div>
+
+  <div class="chat-wrap">
+    <div class="chat-msgs" id="chat-msgs"></div>
+    <div class="chat-in-wrap">
+      <div class="topic-indicator">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+        Posting in: <span id="current-topic-lbl">All topics</span>
+      </div>
+      <div class="extras-row">
+        <button class="milestone-btn" onclick="openMilestone()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Share milestone
+        </button>
+      </div>
+      <div class="in-row">
+        <textarea class="chat-in" id="chat-in" rows="1" maxlength="500" placeholder="Share with your circle..." oninput="updateCharCount(this)"></textarea>
+        <button class="send-btn" id="send-btn" onclick="mcSendMessage()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+      <div class="char-count" id="char-count">0 / 500</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MEMBERS PANEL ═══ -->
+<div class="overlay" id="overlay" onclick="closeMembers()"></div>
+<div class="members-panel" id="members-panel">
+  <div class="mp-hdr">
+    <div class="mp-hdr-t">Circle Members</div>
+    <button class="mp-close" onclick="closeMembers()">×</button>
+  </div>
+  <div class="mp-body" id="members-list"></div>
+</div>
+
+<!-- ═══ MILESTONE MODAL ═══ -->
+<div class="ms-modal" id="ms-modal" onclick="if(event.target===this)closeMilestone()">
+  <div class="ms-sheet">
+    <div class="ms-title">Share a milestone <button onclick="closeMilestone()">×</button></div>
+    <div class="ms-grid" id="ms-grid"></div>
+    <button class="ms-post-btn" onclick="postMilestone()">Share with the circle 🎉</button>
+  </div>
+</div>
+
+<!-- ═══ SAFETY MODAL ═══ -->
+<div class="safety-modal" id="safety-modal">
+  <div class="safety-card">
+    <div class="safety-icon-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#F9A825" stroke-width="2.5" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+    </div>
+    <div class="safety-title">We hear you, mama</div>
+    <div class="safety-msg">It sounds like you might be going through something difficult. You are not alone — help is available right now.</div>
+    <a href="tel:112" style="text-decoration:none;display:block">
+      <button class="safety-call">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.21 1.18 2 2 0 012.22 0H5.18a2 2 0 012 1.72c.13 1 .37 1.97.71 2.91a2 2 0 01-.45 2.11L6.18 7.96a16 16 0 006.86 6.86l1.22-1.22a2 2 0 012.11-.45c.94.34 1.91.58 2.91.71A2 2 0 0122 16.92z"/></svg>
+        Call 112 — Emergency Services
+      </button>
+    </a>
+    <button class="safety-dismiss" onclick="closeSafety()">I am safe — continue to circle</button>
+  </div>
+</div>
+
+<!-- ═══ SOS ═══ -->
+<button class="sos-fab" id="sos-fab" onclick="openSOS()">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.21 1.18 2 2 0 012.22 0H5.18a2 2 0 012 1.72c.13 1 .37 1.97.71 2.91a2 2 0 01-.45 2.11L6.18 7.96a16 16 0 006.86 6.86l1.22-1.22a2 2 0 012.11-.45c.94.34 1.91.58 2.91.71A2 2 0 0122 16.92z"/></svg>
+</button>
+<div class="sos-ov" id="sos-ov" onclick="if(event.target===this)closeSOS()">
+  <div class="sos-sheet">
+    <div class="sos-t">Emergency Assistance</div>
+    <div class="sos-s">Tap below to call for immediate help</div>
+    <a href="tel:112" class="sos-btn p" style="display:flex"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.21 1.18 2 2 0 012.22 0H5.18a2 2 0 012 1.72c.13 1 .37 1.97.71 2.91a2 2 0 01-.45 2.11L6.18 7.96a16 16 0 006.86 6.86l1.22-1.22a2 2 0 012.11-.45c.94.34 1.91.58 2.91.71A2 2 0 0122 16.92z"/></svg>Call 112 — National Emergency</a>
+    <a href="tel:0800111222" class="sos-btn s" style="display:flex"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.21 1.18 2 2 0 012.22 0H5.18a2 2 0 012 1.72c.13 1 .37 1.97.71 2.91a2 2 0 01-.45 2.11L6.18 7.96a16 16 0 006.86 6.86l1.22-1.22a2 2 0 012.11-.45c.94.34 1.91.58 2.91.71A2 2 0 0122 16.92z"/></svg>GHS Hotline — 0800 111 222</a>
+    <button class="sos-cancel" onclick="closeSOS()">Cancel</button>
+  </div>
+</div>
+
+</div><!-- /.app -->
+<script>
+
+/* ══════════════════════════════════════════════
+   FULL i18n ENGINE  —  v7
+══════════════════════════════════════════════ */
+const TRANSLATIONS = {"en": {"app_name": "AkomaHealth", "app_sub": "Health assistant for Ghana", "emergency_bar": "Emergency? Tap to call <strong>112</strong> or <strong>0800 111 222</strong>", "footer": "AkomaHealth v5 · AI-powered · Ghana Health Service aligned · Not a substitute for professional care", "back": "‹", "ob_title": "AkomaHealth", "ob_sub": "Ghana's AI-powered health companion", "ob_ghs": "Aligned with Ghana Health Service protocols &amp; WHO guidelines 2024", "ob_what_title": "What this app does", "ob_feat1": "Malaria &amp; maternal health AI risk assessment", "ob_feat2": "Digital ANC passport — tracks all 8 pregnancy visits", "ob_feat3": "Child growth tracking with WHO Z-score standards", "ob_feat4": "Weight-based medication dosing for CHWs", "ob_feat5": "CHW visit log with printable referral generator", "ob_feat6": "Live malaria outbreak risk map — all 16 regions", "ob_feat7": "AI health Q&amp;A in English, Twi &amp; Hausa with voice input", "ob_disc": "<strong>Medical disclaimer:</strong> AkomaHealth is a health information and screening tool only. It does not replace diagnosis or treatment by a qualified health professional. Always consult a nurse, midwife, or doctor for medical decisions. In an emergency, call <strong>112</strong> immediately.", "ob_lang_title": "Choose your language", "ob_begin": "Get Started →", "mod_mal_t": "Malaria Checker", "mod_mal_d": "AI risk + voice input", "mod_mat_t": "Maternal &amp; Child", "mod_mat_d": "Danger sign triage", "mod_anc_t": "ANC Passport", "mod_anc_d": "Digital pregnancy tracker", "mod_grw_t": "Growth Tracker", "mod_grw_d": "WHO child standards", "mod_dos_t": "Dosing Calc", "mod_dos_d": "Weight-based drug doses", "mod_chw_t": "CHW Log", "mod_chw_d": "Visits &amp; referrals", "mod_map_t": "Outbreak Map", "mod_map_d": "Malaria risk by region", "mod_cht_t": "Health Q&amp;A", "mod_cht_d": "Ask in your language", "mod_fac_t": "Find Health Facility", "mod_fac_d": "All 16 regions — CHPS, clinics &amp; hospitals", "mod_prv_t": "Prevention Tips", "mod_prv_d": "Evidence-based malaria, maternal &amp; child health guidance", "mod_mc_t": "Mama Circle", "mod_mc_d": "Peer support community for mothers · Anonymous · CHW-moderated", "home_greet": "Akwaaba! How can we help you today?", "mal_title": "Malaria Checker", "mal_sub": "AI symptom assessment + voice input", "mal_age_lbl": "Your age group", "mal_age_p": "Select age group", "mal_age_u5": "Under 5 years", "mal_age_5": "5–17 years", "mal_age_18": "18–60 years", "mal_age_60": "Over 60 years", "mal_preg_lbl": "Are you pregnant?", "mal_preg_p": "Select", "mal_preg_no": "No", "mal_preg_yes": "Yes", "mal_preg_ns": "Not sure", "mal_symp_lbl": "Select your symptoms", "mal_voice": "Speak symptoms", "mal_s1": "Fever", "mal_s2": "Chills / Shivering", "mal_s3": "Headache", "mal_s4": "Muscle pain", "mal_s5": "Vomiting", "mal_s6": "Fatigue", "mal_s7": "Sweating", "mal_s8": "Loss of appetite", "mal_s9": "Confusion", "mal_s10": "Yellow eyes", "mal_dur_lbl": "Duration of symptoms", "mal_dur_p": "Select duration", "mal_dur_1": "Less than 24 hours", "mal_dur_2": "1–3 days", "mal_dur_3": "4–7 days", "mal_dur_4": "More than 1 week", "mal_reg_lbl": "Your region in Ghana", "mal_reg_p": "Select region", "mal_btn": "Check Malaria Risk →", "mal_disc": "This tool is for information only. Always visit your nearest CHPS compound for a Rapid Diagnostic Test (RDT) if you suspect malaria.", "mat_title": "Maternal &amp; Child Health", "mat_sub": "Danger sign detection · Emergency triage", "mat_who_lbl": "Who is this for?", "mat_who_p": "Select", "mat_who_1": "Pregnant woman", "mat_who_2": "Postpartum mother (within 6 weeks)", "mat_who_3": "Infant or young child", "mat_who_4": "General information", "mat_stage_lbl": "Pregnancy stage (if pregnant)", "mat_stage_p": "Select or skip", "mat_stage_1": "First trimester (1–3 months)", "mat_stage_2": "Second trimester (4–6 months)", "mat_stage_3": "Third trimester (7–9 months)", "mat_stage_4": "Not pregnant", "mat_signs_lbl": "Select any warning signs", "mat_s1": "Heavy bleeding", "mat_s2": "Severe headache", "mat_s3": "Blurred vision", "mat_s4": "Swollen face/hands", "mat_s5": "Baby not moving", "mat_s6": "Fever over 38°C", "mat_s7": "Convulsions", "mat_s8": "Difficulty breathing", "mat_s9": "Abdominal pain", "mat_s10": "Water breaking early", "mat_concern_lbl": "Describe your concern (optional)", "mat_concern_p": "e.g. I have not felt the baby move since yesterday...", "mat_btn": "Get Guidance →", "mat_disc": "If you have any emergency warning sign, go to the nearest health facility immediately or call <strong>112</strong>.", "anc_title": "ANC Passport", "anc_sub": "Digital antenatal care tracker · 8 visits", "anc_intro": "📋 Your digital ANC card tracks all 8 recommended pregnancy visits. Tap any visit to log the date and notes. Show this to any health worker at any facility.", "anc_modal_date": "Date of visit", "anc_modal_fac": "Health facility visited", "anc_modal_fac_p": "e.g. Tamale Teaching Hospital", "anc_modal_notes": "Health worker notes / observations", "anc_modal_notes_p": "e.g. BP normal, iron tablets prescribed...", "anc_modal_weight": "Weight at this visit (kg)", "anc_modal_weight_p": "e.g. 65", "anc_save": "Save Visit Record ✓", "anc_log": "Log this visit", "anc_edit": "Edit record", "anc_done_badge": "✓ Done", "anc_due_badge": "Due next", "anc_up_badge": "Upcoming", "grw_title": "Child Growth Tracker", "grw_sub": "WHO growth standards · ages 0–60 months", "grw_sex_lbl": "Child sex", "grw_sex_p": "Select", "grw_sex_m": "Boy", "grw_sex_f": "Girl", "grw_age_lbl": "Age in months (0–60)", "grw_age_p": "e.g. 18 (= 1 year 6 months)", "grw_wt_lbl": "Weight (kg)", "grw_wt_p": "e.g. 9.5", "grw_ht_lbl": "Height / Length (cm)", "grw_ht_p": "e.g. 75.0", "grw_btn": "Calculate Growth Status", "grw_disc": "Growth assessment is a screening tool only. Consult a trained health worker for clinical management of malnutrition.", "dos_title": "Dosing Calculator", "dos_sub": "Weight-based doses · GHS protocols", "dos_wt_lbl": "Patient weight (kg)", "dos_wt_p": "e.g. 12.5", "dos_age_lbl": "Patient age group", "dos_age_p": "Select age group", "dos_age_inf": "Infant (2–11 months)", "dos_age_ch": "Child (1–12 years)", "dos_age_ad": "Adult (12+ years)", "dos_reminder_t": "⚕ CHW Reminder", "dos_reminder": "Always confirm weight before dosing. If in doubt, refer to the nearest health facility. These are standard first-line doses per GHS CHPS protocols.", "chw_title": "CHW Visit Log", "chw_sub": "Record visits · Generate referrals", "chw_tab_log": "Log New Visit", "chw_tab_hist": "Visit History", "chw_name_lbl": "Patient name", "chw_name_p": "Full name", "chw_age_lbl": "Age &amp; sex", "chw_age_p": "e.g. 3 years, Female", "chw_vil_lbl": "Community / Village", "chw_vil_p": "e.g. Tolon, Northern Region", "chw_comp_lbl": "Chief complaint", "chw_comp_p": "e.g. Fever for 2 days", "chw_find_lbl": "Findings &amp; action taken", "chw_find_p": "e.g. Temperature 38.5°C, RDT positive, artemether given...", "chw_ref_lbl": "Referral needed?", "chw_ref_no": "No — managed at community level", "chw_ref_yes": "Yes — refer to health facility", "chw_ref_urg": "Urgent — immediate referral needed", "chw_ref_fac_lbl": "Refer to which facility?", "chw_ref_fac_p": "e.g. Tamale Teaching Hospital", "chw_save_btn": "Save Visit Record", "chw_no_visits": "No visits logged yet.\nLog your first visit using the form.", "map_title": "Malaria Outbreak Map", "map_sub": "Risk levels · All 16 Ghana regions", "map_legend_h": "High Risk", "map_legend_m": "Medium Risk", "map_legend_l": "Low Risk", "map_updated": "Last updated: April 2025 · Source: GHS Malaria Programme", "chat_title": "Health Q&amp;A", "chat_sub": "AI assistant · Responds in your language", "chat_welcome": "Akwaaba! I am AkomaHealth, your AI health assistant. Ask me any health question — about symptoms, medications, pregnancy, child care, or disease prevention in Ghana. I will answer in your chosen language.", "chat_starter_lbl": "Try asking", "chat_sc1": "Signs of malaria in children?", "chat_sc2": "When should I attend ANC?", "chat_sc3": "Safe to breastfeed with malaria?", "chat_sc4": "Child has diarrhoea — what to do?", "chat_placeholder": "Type your health question...", "fac_title": "Find Health Facility", "fac_sub": "All 16 regions · CHPS, clinics &amp; hospitals", "fac_reg_lbl": "Select your region", "fac_reg_p": "-- Choose region --", "prv_title": "Prevention Tips", "prv_sub": "Evidence-based · GHS &amp; WHO guidelines", "prv_cat1": "Malaria Prevention", "prv_m1": "Sleep under an insecticide-treated bednet (ITN) every night — especially children under 5 and pregnant women", "prv_m2": "Remove standing water — old tyres, pots, gutters — where mosquitoes breed near your home", "prv_m3": "Use indoor residual spraying (IRS) when offered by your district health team", "prv_m4": "Pregnant women: take IPTp-SP at every ANC visit from the second trimester onwards", "prv_m5": "Children 5–17 months: malaria vaccine (R21/Matrix-M) now available — ask your CHPS compound", "prv_cat2": "Maternal Health", "prv_mat1": "Attend at least 8 ANC visits during pregnancy — the first before 12 weeks", "prv_mat2": "Take iron and folic acid tablets daily throughout pregnancy", "prv_mat3": "Deliver at a health facility with a skilled birth attendant — not at home alone", "prv_mat4": "Breastfeed exclusively for the first 6 months — protects babies from infection", "prv_cat3": "Child Health", "prv_ch1": "Follow the Ghana Immunisation Schedule — vaccines protect against measles, polio, meningitis and more", "prv_ch2": "Wash hands with soap before feeding children and after using the toilet", "prv_ch3": "Weigh your child monthly at the CHPS compound to monitor growth and catch malnutrition early"}, "tw": {"app_name": "AkomaHealth", "app_sub": "Ghana ahoyefoɔ mmoa", "emergency_bar": "Ɔhaw? Klik ha na frɛ <strong>112</strong> anaa <strong>0800 111 222</strong>", "footer": "AkomaHealth v5 · AI wɔ mu · GHS akwankyerɛ · Ɛnyɛ aduru dɔkota mmoa", "home_greet": "Akwaaba! Yɛbɛboa wo dɛn nnɛ?", "ob_title": "AkomaHealth", "ob_sub": "Ghana AI ahoyefoɔ mmoa", "ob_ghs": "Wɔ GHS ne WHO akwankyerɛ so 2024", "ob_what_title": "Biribi a app yi yɛ", "ob_feat1": "Malaria ne ɔna ho AI kɔkɔ hwehwɛ", "ob_feat2": "ANC digital kaad — hwɛ nhwɛsoɔ 8 nyinaa", "ob_feat3": "Ba tirim dɛm hwɛ WHO ananmusifo so", "ob_feat4": "Aduru dɔsis a emu yɛ dɛ CHW mma", "ob_feat5": "CHW akwan log ne referral krataa", "ob_feat6": "Malaria map wɔ mmerɛ 16 nyinaa mu", "ob_feat7": "AI abɔfoɔ wɔ Twi, Hausa ne Borɔfo mu", "ob_disc": "<strong>Aduru kɔmfo:</strong> AkomaHealth yɛ ahoyefoɔ ade pɛ. Ɛnyɛ dɔkota adwuma. Kɔ dɔkota nkyɛn daa. Ɔhaw a ɛwɔ hɔ a, frɛ <strong>112</strong>.", "ob_lang_title": "Paw w'asɛm", "ob_begin": "Hyɛ Ase →", "mod_mal_t": "Malaria Hwɛ", "mod_mal_d": "AI kɔkɔ ne ɔdane asɛm", "mod_mat_t": "Ɔna ne Ba Ho", "mod_mat_d": "Hia nsɛm a ɛhia twa", "mod_anc_t": "ANC Kaad", "mod_anc_d": "Digital nyinsɛn hwɛsoɔ", "mod_grw_t": "Tirim Dɛm Hwɛ", "mod_grw_d": "WHO ba tirim dɛm", "mod_dos_t": "Aduru Dɔsis", "mod_dos_d": "Dɔsis a emu yɛ dɛ", "mod_chw_t": "CHW Log", "mod_chw_d": "Akwan ne referral", "mod_map_t": "Malaria Map", "mod_map_d": "Malaria kɔkɔ mmerɛ so", "mod_cht_t": "Abɔfoɔ Asɛm", "mod_cht_d": "Bisɛ wo kasa mu", "mod_fac_t": "Hwɛ Ayaresabea", "mod_fac_d": "Mmerɛ 16 — CHPS ne klinik nyinaa", "mod_prv_t": "Ɔhaw Tua Tips", "mod_prv_d": "Malaria ne ɔna ho ɔhaw tua akwankyerɛ", "mod_mc_t": "Mama Circle", "mod_mc_d": "Ɔna ne maame mmɔborɔhunu kuw · Hunu · CHW hwɛ", "mal_title": "Malaria Hwɛ", "mal_sub": "AI yadeɛ hwɛ ne ɔdane asɛm", "mal_age_lbl": "W'abusuawu", "mal_age_p": "Paw abusuawu", "mal_age_u5": "Mfe 5 ase", "mal_age_5": "Mfe 5–17", "mal_age_18": "Mfe 18–60", "mal_age_60": "Mfe 60 soro", "mal_preg_lbl": "Wowɔ bayere anaa?", "mal_preg_p": "Paw", "mal_preg_no": "Daabi", "mal_preg_yes": "Aane", "mal_preg_ns": "Mintim", "mal_symp_lbl": "Paw w'ayaredeɛ", "mal_voice": "Ka w'ayaredeɛ", "mal_s1": "Ayɛ hyew", "mal_s2": "Afu / Wosow", "mal_s3": "Tipɛ yaw", "mal_s4": "Honam yaw", "mal_s5": "Efuw", "mal_s6": "Abɔ", "mal_s7": "Ahuhuro", "mal_s8": "Awerɛhoɔ", "mal_s9": "Adwene mu ntom", "mal_s10": "Aniwa akaha", "mal_dur_lbl": "Ayaredeɛ no berɛ", "mal_dur_p": "Paw berɛ", "mal_dur_1": "Dɔnhwere 24 ase", "mal_dur_2": "Nnafoa 1–3", "mal_dur_3": "Nnafoa 4–7", "mal_dur_4": "Nnafoa 7 soro", "mal_reg_lbl": "Wo Ghana mmerɛ", "mal_reg_p": "Paw mmerɛ", "mal_btn": "Hwɛ Malaria Kɔkɔ →", "mal_disc": "Ade yi yɛ nsɛm pɛ. Kɔ wo CHPS compound nkyɛn sɛ wohu malaria nsɛm biara.", "mat_title": "Ɔna ne Ba Ho Apɔmu", "mat_sub": "Hia nsɛm hwɛ · Ɔhaw twa", "mat_who_lbl": "Hwan enti na wɔyɛ ade yi?", "mat_who_p": "Paw", "mat_who_1": "Ɔbaa a ɔwɔ bayere", "mat_who_2": "Ɔna a obi awo (wiemɛn 6 mu)", "mat_who_3": "Abɔfraba anaa mma ketewaa", "mat_who_4": "Nsɛm a ɛfa saa so", "mat_stage_lbl": "Bayere mmerɛ (sɛ wowɔ bayere a)", "mat_stage_p": "Paw anaa twam", "mat_stage_1": "Bosome 1–3", "mat_stage_2": "Bosome 4–6", "mat_stage_3": "Bosome 7–9", "mat_stage_4": "Menwɔ bayere", "mat_signs_lbl": "Paw hia nsɛm a wohuu", "mat_s1": "Mogya pii", "mat_s2": "Tipɛ yaw kɛse", "mat_s3": "Aniwa anyim tumi", "mat_s4": "Anim/nsa bɔ", "mat_s5": "Ba ntu", "mat_s6": "Ayɛ hyew 38°C soro", "mat_s7": "Awere", "mat_s8": "Ahome mfata", "mat_s9": "Yafunu yaw", "mat_s10": "Nsuo tu ntɛm", "mat_concern_lbl": "Kyerɛ wo adwene (sɛ pɛ a)", "mat_concern_p": "Sɔ: Mente ba no tu daa nnawotwe yi...", "mat_btn": "Hwɛ Akwankyerɛ →", "mat_disc": "Sɛ wohu hia nsɛm biara a, kɔ ayaresabea nkyɛn ntɛm anaa frɛ <strong>112</strong>.", "anc_title": "ANC Kaad", "anc_sub": "Digital bayere hwɛsoɔ · Nhwɛsoɔ 8", "anc_intro": "📋 Wo digital ANC kaad no hwɛ nhwɛsoɔ 8 a wɔhwehwɛ. Klik hwɛsoɔ biara so na kyerɛw da ne nsɛm. Kyerɛ saa akoa biara wɔ ayaresabea biara mu.", "anc_modal_date": "Nhwɛsoɔ da", "anc_modal_fac": "Ayaresabea a wokɔɔ", "anc_modal_fac_p": "Sɔ: Tamale Teaching Hospital", "anc_modal_notes": "Aduru kɔmfo nsɛm", "anc_modal_notes_p": "Sɔ: BP yɛ pɛ, wɔmaa me nsusuiɛ...", "anc_modal_weight": "Ɔzɛn a wowɔ saa da no (kg)", "anc_modal_weight_p": "Sɔ: 65", "anc_save": "Gye Nhwɛsoɔ Akontaa ✓", "anc_log": "Kyerɛw nhwɛsoɔ yi", "anc_edit": "Sesa akontaa", "anc_done_badge": "✓ Yɛɛ", "anc_due_badge": "Dɛ mprenu", "anc_up_badge": "Ɛbɛba", "grw_title": "Ba Tirim Dɛm Hwɛ", "grw_sub": "WHO tirim dɛm · Bosome 0–60", "grw_sex_lbl": "Ba ɔbere", "grw_sex_p": "Paw", "grw_sex_m": "Abofraba barima", "grw_sex_f": "Abofraba baa", "grw_age_lbl": "Bosome mu (0–60)", "grw_age_p": "Sɔ: 18", "grw_wt_lbl": "Ɔzɛn (kg)", "grw_wt_p": "Sɔ: 9.5", "grw_ht_lbl": "Tenten (cm)", "grw_ht_p": "Sɔ: 75.0", "grw_btn": "Hwɛ Tirim Dɛm", "grw_disc": "Tirim dɛm hwɛ yɛ hwehwɛ ade pɛ. Kɔ wo dɔkota nkyɛn adwuma papa so.", "dos_title": "Aduru Dɔsis", "dos_sub": "Ɔzɛn so dɔsis · GHS akwankyerɛ", "dos_wt_lbl": "Ɔyarefoɔ ɔzɛn (kg)", "dos_wt_p": "Sɔ: 12.5", "dos_age_lbl": "Ɔyarefoɔ abusuawu", "dos_age_p": "Paw abusuawu", "dos_age_inf": "Abɔfraba (bosome 2–11)", "dos_age_ch": "Abofra (mfe 1–12)", "dos_age_ad": "Ɔpanyin (mfe 12+)", "dos_reminder_t": "⚕ CHW Hia", "dos_reminder": "Hwɛ ɔzɛn sɛ woma aduru. Sɛ wontim a, kɔ ayaresabea nkyɛn. Yɛ GHS CHPS akwankyerɛ so.", "chw_title": "CHW Akwan Log", "chw_sub": "Kyerɛw akwan · Referral", "chw_tab_log": "Kyerɛw Akwan Foforo", "chw_tab_hist": "Akwan Akontaa", "chw_name_lbl": "Ɔyarefoɔ din", "chw_name_p": "Din nyinaa", "chw_age_lbl": "Mfe ne ɔbere", "chw_age_p": "Sɔ: Mfe 3, ɔbaa", "chw_vil_lbl": "Kuro / Akuraa", "chw_vil_p": "Sɔ: Tolon, Atifi Mmerɛ", "chw_comp_lbl": "Ayaredeɛ titiriw", "chw_comp_p": "Sɔ: Ayɛ hyew nnafoa 2", "chw_find_lbl": "Wohuu biribi ne adwuma", "chw_find_p": "Sɔ: Oguanhyew 38.5°C, RDT yɛ malaria, aduru wɔ ne so...", "chw_ref_lbl": "Wohia referral?", "chw_ref_no": "Daabi — wɔfaa so fie", "chw_ref_yes": "Aane — kɔ ayaresabea nkyɛn", "chw_ref_urg": "Ntɛm — kɔ seesei ara", "chw_ref_fac_lbl": "Ayaresabea bɛn?", "chw_ref_fac_p": "Sɔ: Tamale Teaching Hospital", "chw_save_btn": "Gye Akwan Akontaa", "chw_no_visits": "Akwan biara nni hɔ bio.\nKyerɛw wo akwan a edi kan no.", "map_title": "Malaria Outbreak Map", "map_sub": "Kɔkɔ · Mmerɛ 16 nyinaa", "map_legend_h": "Kɔkɔ Kɛse", "map_legend_m": "Kɔkɔ Mfimfini", "map_legend_l": "Kɔkɔ Ketewa", "map_updated": "Wɔsesaa: April 2025 · GHS Malaria Programme", "chat_title": "Abɔfoɔ Asɛm", "chat_sub": "AI mmoa · Wo kasa mu", "chat_welcome": "Akwaaba! Meyɛ AkomaHealth AI abɔfoɔ. Bisɛ me ahoyefoɔ asɛm biara — ayaredeɛ, aduru, bayere, ba ho, Ghana mu yadeɛ tua. Mɛka wo kasa mu.", "chat_starter_lbl": "Sɔ bisɛ", "chat_sc1": "Malaria nsɛm wɔ mma mu?", "chat_sc2": "Mɛkɔ ANC da bɛn?", "chat_sc3": "Mede nufusu ama ba sɛ mewɔ malaria?", "chat_sc4": "Me ba wɔ ayamtuo — dɛn na mɛyɛ?", "chat_placeholder": "Kyerɛw wo ahoyefoɔ asɛm...", "fac_title": "Hwɛ Ayaresabea", "fac_sub": "Mmerɛ 16 · CHPS, klinik ne spital", "fac_reg_lbl": "Paw wo mmerɛ", "fac_reg_p": "-- Paw mmerɛ --", "prv_title": "Ɔhaw Tua Tips", "prv_sub": "GHS ne WHO akwankyerɛ so", "prv_cat1": "Malaria Ɔhaw Tua", "prv_m1": "Da ITN ase anadwo nyinaa — titiriw abɔfraba mfe 5 ase ne bayere wɔ mu mma", "prv_m2": "Yi nsuo a ɛgyina — tyres, akokoaa, gutters — kae fwene wɔ wo fie nkyɛn", "prv_m3": "Fa IRS a wofa wo asase mu sɛ wɔde ba", "prv_m4": "Ɔna a ɔwɔ bayere: fa IPTp-SP wɔ ANC nhwɛsoɔ biara mu firi mprenu bosome", "prv_m5": "Mma bosome 5–17: malaria tumi (R21/Matrix-M) wɔ hɔ — bisɛ wo CHPS compound", "prv_cat2": "Ɔna Ho Sahare", "prv_mat1": "Kɔ ANC nhwɛsoɔ 8 sɛ wowɔ bayere — a edi kan no ansa bosome 12 ansa", "prv_mat2": "Fa nsusuiɛ ne folic acid wɔ bayere nyinaa mu daa", "prv_mat3": "Wo bayere wo dɔkota nkyɛn — mmfa wo fie nko ara", "prv_mat4": "Ma ba nufusu bosome 6 a edi kan so pɛ — ɛbɔ ba no ho ban", "prv_cat3": "Ba Ho Sahare", "prv_ch1": "Tia Ghana Tumi Nhyehyɛeɛ — tumi bɔ ho ban wɔ yadeɛ pii ho", "prv_ch2": "Hohoro wo nsa nsapokakyerɛ wɔ ama ba adidi ansa ne tiafi akyi", "prv_ch3": "Zɛn wo ba wɔ CHPS compound daa daa na hunu yadeɛ ntɛm"}, "ha": {"app_name": "AkomaHealth", "app_sub": "Mataimakin lafiya na Ghana", "emergency_bar": "Gaggawa? Danna nan don kira <strong>112</strong> ko <strong>0800 111 222</strong>", "footer": "AkomaHealth v5 · AI · GHS tsarin · Ba maye ga likita ba", "home_greet": "Sannu! Yaya zamu iya taimaka maka yau?", "ob_title": "AkomaHealth", "ob_sub": "Abokin lafiya na AI a Ghana", "ob_ghs": "Daidai da ka'idojin GHS da WHO 2024", "ob_what_title": "Abin da wannan app ke yi", "ob_feat1": "Kimantawa da AI don malaria da lafiyar uwa", "ob_feat2": "Katin ANC na dijital — bi ziyara 8 na ciki", "ob_feat3": "Bin girman yaro da ma'aunin WHO", "ob_feat4": "Adadin magani bisa nauyi don CHW", "ob_feat5": "Rijistar ziyara ta CHW da takardar rujukan", "ob_feat6": "Taswira ta barkewar zazzabi — yankuna 16", "ob_feat7": "Tattaunawa da AI a Hausa, Twi da Turanci", "ob_disc": "<strong>Gargadi na likita:</strong> AkomaHealth kayan bayanai ne kawai. Ba ya maye matsayin likita. Koyaushe nemi taimako. A gaggawa, kira <strong>112</strong>.", "ob_lang_title": "Zaɓi harsheka", "ob_begin": "Fara →", "mod_mal_t": "Binciken Zazzabi", "mod_mal_d": "AI da murya", "mod_mat_t": "Lafiyar Uwa da Yaro", "mod_mat_d": "Gano alamun haɗari", "mod_anc_t": "Katin ANC", "mod_anc_d": "Bin ziyarar ciki", "mod_grw_t": "Bin Girman Yaro", "mod_grw_d": "Ma'aunin WHO", "mod_dos_t": "Adadin Magani", "mod_dos_d": "Adadin bisa nauyi", "mod_chw_t": "Rijistar CHW", "mod_chw_d": "Ziyara da rujukan", "mod_map_t": "Taswira", "mod_map_d": "Haɗarin zazzabi a yanki", "mod_cht_t": "Tambayoyin Lafiya", "mod_cht_d": "Tambayi cikin harsheka", "mod_fac_t": "Nemo Cibiyar Lafiya", "mod_fac_d": "Yankuna 16 — CHPS, asibitoci", "mod_prv_t": "Shawarwarin Kariya", "mod_prv_d": "Jagoran zazzabi, uwa da yaro", "mod_mc_t": "Mama Circle", "mod_mc_d": "Ƙungiyar tallafin iyaye mata · Ba a san su · CHW ke kula", "mal_title": "Binciken Zazzabi", "mal_sub": "Kimantawa da AI + murya", "mal_age_lbl": "Rukunin shekaru", "mal_age_p": "Zaɓi rukunin shekaru", "mal_age_u5": "Ƙasa da shekaru 5", "mal_age_5": "Shekaru 5–17", "mal_age_18": "Shekaru 18–60", "mal_age_60": "Sama da shekaru 60", "mal_preg_lbl": "Kuna da ciki?", "mal_preg_p": "Zaɓi", "mal_preg_no": "A'a", "mal_preg_yes": "Ee", "mal_preg_ns": "Ban tabbata ba", "mal_symp_lbl": "Zaɓi alamominku", "mal_voice": "Faɗi alamomi", "mal_s1": "Zazzabi", "mal_s2": "Rawar jiki", "mal_s3": "Ciwon kai", "mal_s4": "Ciwon tsoka", "mal_s5": "Amai", "mal_s6": "Gajiya", "mal_s7": "Gumi", "mal_s8": "Rashin ci", "mal_s9": "Rudani", "mal_s10": "Rawaya a idanu", "mal_dur_lbl": "Tsawon lokacin alamomi", "mal_dur_p": "Zaɓi tsawon lokaci", "mal_dur_1": "Ƙasa da awanni 24", "mal_dur_2": "Kwana 1–3", "mal_dur_3": "Kwana 4–7", "mal_dur_4": "Fiye da mako 1", "mal_reg_lbl": "Yankinku a Ghana", "mal_reg_p": "Zaɓi yanki", "mal_btn": "Bincika Haɗarin Zazzabi →", "mal_disc": "Wannan kayan aikin don bayanai ne kawai. Ziyarci cibiyar CHPS don gwajin RDT idan kana zargin zazzabi.", "mat_title": "Lafiyar Uwa da Yaro", "mat_sub": "Gano alamun haɗari · Triage na gaggawa", "mat_who_lbl": "Wannan don wane ne?", "mat_who_p": "Zaɓi", "mat_who_1": "Mace mai ciki", "mat_who_2": "Uwa bayan haihuwa (cikin makonni 6)", "mat_who_3": "Jariiri ko ƙaramin yaro", "mat_who_4": "Bayanai gaba ɗaya", "mat_stage_lbl": "Mataki na ciki (idan mai ciki)", "mat_stage_p": "Zaɓi ko tsallake", "mat_stage_1": "Watanni 1–3", "mat_stage_2": "Watanni 4–6", "mat_stage_3": "Watanni 7–9", "mat_stage_4": "Ba mai ciki ba", "mat_signs_lbl": "Zaɓi alamun gargaɗi", "mat_s1": "Jini mai yawa", "mat_s2": "Ciwon kai mai ƙarfi", "mat_s3": "Hangen nesa ya ɓata", "mat_s4": "Kumbura a fuska/hannaye", "mat_s5": "Jariri bai motsa ba", "mat_s6": "Zazzabi sama da 38°C", "mat_s7": "Farfaɗiya", "mat_s8": "Matsalar numfashi", "mat_s9": "Ciwon ciki", "mat_s10": "Ruwa ya fita da wuri", "mat_concern_lbl": "Bayyana damuwarku (zaɓi)", "mat_concern_p": "Misali: Ban ji jaririn yana motsi tun jiya ba...", "mat_btn": "Nemi Jagora →", "mat_disc": "Idan kana da alamun gaggawa, je asibiti nan da nan ko kira <strong>112</strong>.", "anc_title": "Katin ANC", "anc_sub": "Bin ziyarar ciki na dijital · Ziyara 8", "anc_intro": "📋 Katin ANC naka na dijital yana bin ziyara 8 da ake buƙata. Danna kowane ziyara don rubuta kwanan wata da bayanai. Nuna shi ga kowane ma'aikacin lafiya a kowane cibiya.", "anc_modal_date": "Ranar ziyara", "anc_modal_fac": "Cibiyar lafiya da aka ziyarta", "anc_modal_fac_p": "Misali: Tamale Teaching Hospital", "anc_modal_notes": "Bayanan ma'aikacin lafiya", "anc_modal_notes_p": "Misali: BP ya daidaita, an ba da kwayoyin ƙarfe...", "anc_modal_weight": "Nauyi a wannan ziyara (kg)", "anc_modal_weight_p": "Misali: 65", "anc_save": "Ajiye Rijistar Ziyara ✓", "anc_log": "Yi rijistar wannan ziyara", "anc_edit": "Gyara rijistar", "anc_done_badge": "✓ An yi", "anc_due_badge": "Na gaba", "anc_up_badge": "Mai zuwa", "grw_title": "Bin Girman Yaro", "grw_sub": "Ma'aunin WHO · Watanni 0–60", "grw_sex_lbl": "Jinsin yaro", "grw_sex_p": "Zaɓi", "grw_sex_m": "Yaro", "grw_sex_f": "Yarinya", "grw_age_lbl": "Shekaru a watanni (0–60)", "grw_age_p": "Misali: 18", "grw_wt_lbl": "Nauyi (kg)", "grw_wt_p": "Misali: 9.5", "grw_ht_lbl": "Tsawo (cm)", "grw_ht_p": "Misali: 75.0", "grw_btn": "Ƙididdige Yanayin Girma", "grw_disc": "Gwajin girma kayan gano ne kawai. Nemi ma'aikacin lafiya don kulawa ta asibiti.", "dos_title": "Adadin Magani", "dos_sub": "Adadin bisa nauyi · Tsarin GHS", "dos_wt_lbl": "Nauyin majiyyaci (kg)", "dos_wt_p": "Misali: 12.5", "dos_age_lbl": "Rukunin shekaru", "dos_age_p": "Zaɓi rukunin shekaru", "dos_age_inf": "Jariiri (watanni 2–11)", "dos_age_ch": "Yaro (shekaru 1–12)", "dos_age_ad": "Babba (shekaru 12+)", "dos_reminder_t": "⚕ Tunatarwa ta CHW", "dos_reminder": "Tabbatar da nauyi kafin ba da magani. Idan ba ka tabbata ba, aike zuwa asibiti. Waɗannan adadin farko ne na GHS CHPS.", "chw_title": "Rijistar Ziyara ta CHW", "chw_sub": "Yi rijistar ziyara · Ƙirƙiri rujukan", "chw_tab_log": "Yi Rijistar Sabuwar Ziyara", "chw_tab_hist": "Tarihin Ziyara", "chw_name_lbl": "Sunan majiyyaci", "chw_name_p": "Suna gaba ɗaya", "chw_age_lbl": "Shekaru &amp; jinsi", "chw_age_p": "Misali: Shekaru 3, Mace", "chw_vil_lbl": "Al'umma / ƙauye", "chw_vil_p": "Misali: Tolon, Arewacin Yanki", "chw_comp_lbl": "Korafi na farko", "chw_comp_p": "Misali: Zazzabi tsawon kwana 2", "chw_find_lbl": "Abubuwan da aka gano &amp; aiki da aka yi", "chw_find_p": "Misali: Zazzabi 38.5°C, RDT yana nuna zazzabi, an ba magani...", "chw_ref_lbl": "An buƙaci rujukan?", "chw_ref_no": "A'a — an gudanar da al'umma", "chw_ref_yes": "Ee — je cibiyar lafiya", "chw_ref_urg": "Gaggawa — nan da nan", "chw_ref_fac_lbl": "Je wace cibiya?", "chw_ref_fac_p": "Misali: Tamale Teaching Hospital", "chw_save_btn": "Ajiye Rijistar Ziyara", "chw_no_visits": "Babu ziyarar da aka yi rijistar ba tukuna.\nYi rijistar farko ta amfani da fom.", "map_title": "Taswira ta Barkewar Zazzabi", "map_sub": "Matakin haɗari · Yankuna 16 na Ghana", "map_legend_h": "Haɗari Mai Yawa", "map_legend_m": "Haɗari Matsakaici", "map_legend_l": "Haɗari Kaɗan", "map_updated": "An sabunta: Afrilu 2025 · Tushe: GHS", "chat_title": "Tambayoyin Lafiya", "chat_sub": "Mataimakin AI · Yana amsa cikin harsheka", "chat_welcome": "Sannu! Ni ne AkomaHealth AI, mataimakin lafiya naku. Ku tambaye ni duk wata tambayar lafiya — game da alamomi, magunguna, ciki, kula da yara, ko rigakafin cututtuka a Ghana. Zan amsa cikin harshenku.", "chat_starter_lbl": "Gwada tambaya", "chat_sc1": "Alamomin zazzabi a yara?", "chat_sc2": "Yaushe zan je ANC?", "chat_sc3": "Amintacce ne shayar da yaro da zazzabi?", "chat_sc4": "Ɗana yana da gudawa — me zan yi?", "chat_placeholder": "Rubuta tambayar lafiyarka...", "fac_title": "Nemo Cibiyar Lafiya", "fac_sub": "Yankuna 16 · CHPS, asibiti", "fac_reg_lbl": "Zaɓi yankinku", "fac_reg_p": "-- Zaɓi yanki --", "prv_title": "Shawarwarin Kariya", "prv_sub": "GHS da WHO jagoranci", "prv_cat1": "Rigakafin Zazzabi", "prv_m1": "Kwana ƙarƙashin sauro mai maganin kashe kwari kowace dare — musamman yara ƙasa da 5 da mata masu ciki", "prv_m2": "Cire ruwa mai tsayuwa — tayoyin da suka tsufa, tukwane, magudanan ruwa — inda sauro ke haihuwa", "prv_m3": "Yi amfani da IRS idan ƙungiyar lafiya ta gundumarku ta ba da shi", "prv_m4": "Mata masu ciki: ɗauki IPTp-SP a kowace ziyarar ANC daga watanni 4", "prv_m5": "Yara watanni 5–17: allurar zazzabi (R21/Matrix-M) tana akwai — tambaya a CHPS", "prv_cat2": "Lafiyar Uwa", "prv_mat1": "Je ANC sau 8 a cikin ciki — na farko kafin makonni 12", "prv_mat2": "Ɗauki kwayoyin ƙarfe da folic acid kowace rana a lokacin ciki", "prv_mat3": "Yi haihuwa a asibiti tare da mai taimako — kar a yi a gida kaɗai", "prv_mat4": "Shayar da yaro kawai na watanni 6 na farko — yana kare yaro daga cututtuka", "prv_cat3": "Lafiyar Yaro", "prv_ch1": "Bi Jadawalin Allurar Ghana — alluran suna kare daga kyanda, shan inna, da sauransu", "prv_ch2": "Wanke hannaye da sabulu kafin ciyar da yara da bayan fitar da najasa", "prv_ch3": "Auna yaro kowace wata a CHPS don bin girma da gano rashin abinci mai gina jiki"}};
+let appLang = 'en';
+
+function applyLang(lang) {
+  appLang = lang;
+  const Tl = TRANSLATIONS[lang] || TRANSLATIONS.en;
+
+  /* 1. Text content */
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (!Tl[key]) return;
+    if (el.getAttribute('data-i18n-html') === '1') {
+      el.innerHTML = Tl[key];
+    } else if (el.tagName === 'OPTION') {
+      el.textContent = Tl[key];
+    } else {
+      /* preserve child elements (e.g. <strong>, <span>) — only update first text node */
+      let didUpdate = false;
+      for (const node of el.childNodes) {
+        if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+          node.textContent = Tl[key];
+          didUpdate = true;
+          break;
+        }
+      }
+      if (!didUpdate) el.textContent = Tl[key];
+    }
+  });
+
+  /* 2. Placeholders */
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const k = el.getAttribute('data-i18n-placeholder');
+    if (Tl[k]) el.placeholder = Tl[k];
+  });
+
+  /* 3. Lang button state */
+  document.querySelectorAll('.lb').forEach(b => b.classList.remove('on'));
+  document.querySelectorAll('.lb').forEach(b => {
+    if (b.getAttribute('onclick') && b.getAttribute('onclick').indexOf("'" + lang + "'") !== -1) {
+      b.classList.add('on');
+    }
+  });
+
+  /* 4. Chat welcome */
+  const cw = document.getElementById('chat-welcome');
+  if (cw && Tl.chat_welcome) cw.textContent = Tl.chat_welcome;
+
+  /* 5. Chat input placeholder */
+  const ci = document.getElementById('chat-in');
+  if (ci && Tl.chat_placeholder) ci.placeholder = Tl.chat_placeholder;
+
+  /* 6. Voice button label */
+  const vb = document.getElementById('m-voice-btn');
+  if (vb && !vb.classList.contains('rec') && Tl.mal_voice) {
+    const svg = (vb.innerHTML.match(/<svg[\s\S]*?<\/svg>/) || [''])[0];
+    vb.innerHTML = svg + ' ' + Tl.mal_voice;
+  }
+
+  /* 7. CHW empty-state message */
+  const hl = document.getElementById('chw-history-list');
+  if (hl && Tl.chw_no_visits && hl.innerHTML.includes('No visits')) {
+    hl.innerHTML = '<div style="font-size:13px;color:#999;text-align:center;padding:2rem;font-weight:500">'
+      + Tl.chw_no_visits.replace('\n','<br/>') + '</div>';
+  }
+
+  /* 8. Re-render ANC (uses appLang for button labels) */
+  if (document.getElementById('anc-timeline') &&
+      document.getElementById('anc').classList.contains('active')) {
+    renderANC();
+  }
+}
+
+function obLang(l, btn) {
+  appLang = l;
+  document.querySelectorAll('.lang-opt').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+
+function beginApp() {
+  applyLang(appLang);
+  go('home');
+}
+
+function switchLang(l, btn) {
+  applyLang(l);
+}
+
+/* i18n-aware ANC renderer */
+function renderANC() {
+  const Tl  = TRANSLATIONS[appLang] || TRANSLATIONS.en;
+  const tl  = document.getElementById('anc-timeline');
+  if (!tl) return;
+  tl.innerHTML = ANC_VISITS.map((v, i) => {
+    const d         = ancData[v.key] || {};
+    const done      = !!d.date;
+    const dueApprox = !done && i === Object.keys(ancData).length;
+    const sc        = done ? 'done-c' : dueApprox ? 'due-c' : '';
+    const ss        = done ? 'done-s' : dueApprox ? 'due-s' : 'up-s';
+    const sl        = done       ? (Tl.anc_done_badge || '✓ Done')
+                    : dueApprox ? (Tl.anc_due_badge   || 'Due next')
+                    :              (Tl.anc_up_badge    || 'Upcoming');
+    const dc        = done ? 'done' : '';
+    const btnLbl    = done ? (Tl.anc_edit || 'Edit record')
+                           : (Tl.anc_log  || 'Log this visit');
+    return `<div class="anc-visit">
+      <div class="anc-dot ${dc}"></div>
+      <div class="anc-card ${sc}" onclick="openAncModal('${v.key}',${i})">
+        <div class="anc-vtop">
+          <span class="anc-vt">${v.n}</span>
+          <span class="anc-st ${ss}">${sl}</span>
+        </div>
+        <div class="anc-wk">${v.wk}</div>
+        <div class="anc-tests">${v.tests}</div>
+        ${done ? `<div style="margin-top:5px;font-size:11px;color:#52B788;font-weight:700">✓ ${d.date}${d.facility?' · '+d.facility:''}</div>` : ''}
+        <button class="anc-log-btn">${btnLbl}</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+
+const API_KEY = ''; /* ← Add your Anthropic API key: 'sk-ant-...' */
+let currentDrug = 'art';
+let ancData = JSON.parse(localStorage.getItem('anc_data')||'{}');
+let chwVisits = JSON.parse(localStorage.getItem('chw_visits')||'[]');
+let currentAncVisit = null;
+
+
+
+function openSOS(){document.getElementById('sos-ov').classList.add('open')}
+function closeSOS(){document.getElementById('sos-ov').classList.remove('open')}
+function tc(el){el.classList.toggle('on')}
+function chips(cont){return[...cont.querySelectorAll('.chip.on')].map(c=>c.textContent.trim())}
+
+/* ── VOICE INPUT ── */
+let recog=null,isRec=false;
+function toggleVoice(btnId,outId){
+  if(!('webkitSpeechRecognition'in window||'SpeechRecognition'in window)){
+    document.getElementById(outId).textContent='Voice not supported in this browser';return;
+  }
+  const btn=document.getElementById(btnId);
+  if(isRec){recog&&recog.stop();isRec=false;btn.classList.remove('rec');btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg> Speak symptoms';return;}
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  recog=new SR();
+  recog.continuous=false;recog.interimResults=false;
+  recog.lang=appLang==='tw'?'ak-GH':appLang==='ha'?'ha-NE':'en-GH';
+  recog.onresult=e=>{
+    const txt=e.results[0][0].transcript.toLowerCase();
+    document.getElementById(outId).textContent='Heard: "'+txt+'"';
+    const symMap={'fever':0,'chill':1,'shiver':1,'headache':2,'muscle':3,'pain':3,'vomit':4,'nausea':4,'fatigue':5,'tired':5,'sweat':6,'appetite':7,'confusion':8,'confused':8,'yellow':9,'jaundice':9};
+    const chips=document.querySelectorAll('#malaria .chip');
+    Object.entries(symMap).forEach(([k,i])=>{if(txt.includes(k))chips[i].classList.add('on')});
+  };
+  recog.onend=()=>{isRec=false;btn.classList.remove('rec');btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg> Speak symptoms'};
+  recog.start();isRec=true;btn.classList.add('rec');btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg> Listening...';
+}
+
+/* ── CLAUDE API ── */
+async function claude(system,messages){
+  /* API_KEY is optional — claude.ai widget injects auth at network level.
+     For standalone use, paste your key: const API_KEY = 'sk-ant-...' */
+  const headers = {'Content-Type':'application/json','anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'};
+  if(API_KEY) headers['x-api-key'] = API_KEY;
+  const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers,body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,system,messages})});
+  if(!r.ok){
+    const e=await r.json().catch(()=>({}));
+    const msg=e?.error?.message||'API error '+r.status;
+    if(r.status===401) throw new Error('auth-error: '+msg);
+    throw new Error(msg);
+  }
+  const d=await r.json();return d.content?.[0]?.text||'';
+}
+
+function rlevel(t){const l=t.toLowerCase();if(l.includes('high risk')||l.includes('emergency')||l.includes('call 112'))return'high';if(l.includes('medium risk')||l.includes('moderate'))return'medium';return'low'}
+function rico(r){const c={'high':'<path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>','medium':'<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>','low':'<polyline points="20 6 9 17 4 12"/>'};return`<svg style="width:12px;height:12px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">${c[r]}</svg>`}
+function rhtml(r,label,text){return`<div class="rbox ${r}"><div class="rlbl">${rico(r)}${label}</div><div class="rtxt">${text}</div></div>`}
+function errHtml(msg){return`<div class="rbox err"><div class="rtxt">⚠️ ${msg}</div></div>`}
+
+
+function stripMd(text) {
+  return text
+    .replace(/\*\*([^*]+)\*\*/g, '$1')   /* **bold** → plain */
+    .replace(/\*([^*]+)\*/g,   '$1')       /* *italic* → plain */
+    .replace(/^---+$/gm,         '')          /* --- dividers → removed */
+    .replace(/^#{1,6}\s+/gm,    '')          /* ## headings → plain */
+    .replace(/`([^`]+)`/g,       '$1')        /* `code` → plain */
+    .replace(/\n{3,}/g,         '\n\n')      /* collapse excess blank lines */
+    .trim();
+}
+
+const langInstr={en:'Respond in English.',tw:'Respond in Twi (Akan language of Ghana).',ha:'Respond in Hausa.'};
+
+/* ── MALARIA ── */
+async function checkMalaria(){
+  const age=document.getElementById('m-age').value,preg=document.getElementById('m-preg').value,dur=document.getElementById('m-dur').value,reg=document.getElementById('m-region').value;
+  const syms=chips(document.querySelector('#malaria .sg'));
+  if(!age||!dur||syms.length===0){alert('Please select age group, duration, and at least one symptom.');return}
+  /* Age/pregnancy mismatch — warn inline but still proceed with assessment */
+  const agePregnancyWarn = (age==='Under 5 years'||age==='5–17 years')&&preg==='Yes';
+  const btn=document.getElementById('m-btn');btn.disabled=true;
+  document.getElementById('m-load').style.display='block';
+  /* Show inline age/pregnancy warning if applicable */
+  document.getElementById('m-result').innerHTML = agePregnancyWarn
+    ? '<div class="rbox err" style="margin-bottom:8px"><div class="rtxt">⚠️ Note: a child under 17 is unlikely to be pregnant. Please double-check these details before submitting.</div></div>'
+    : '';
+  const sys=`You are AkomaHealth, an AI health assistant for Ghana following WHO and GHS protocols. Assess malaria risk. First line must be exactly HIGH RISK, MEDIUM RISK, or LOW RISK. Then a plain-text explanation (2-3 sentences). Then numbered next steps (3-4). Extra caution for pregnant women and under-5s. Do NOT use markdown, asterisks, bold, italics, or horizontal lines. Plain text only. Max 200 words. ${langInstr[appLang]}`;
+  try{
+    const res=await claude(sys,[{role:'user',content:`Age:${age}\nPregnant:${preg}\nRegion:${reg}\nDuration:${dur}\nSymptoms:${syms.join(', ')}`}]);
+    const cleaned=stripMd(res);
+    const r=rlevel(cleaned);
+    document.getElementById('m-result').innerHTML=rhtml(r,r==='high'?'High Risk':r==='medium'?'Medium Risk':'Low Risk',cleaned);
+  }catch(e){
+    let eMsg;
+    if(e.message.includes('auth-error')||e.message.includes('401'))
+      eMsg='API authentication failed. Add your Anthropic API key to the file, or open this app inside claude.ai.';
+    else if(e.message.includes('Failed to fetch')||e.message.includes('NetworkError'))
+      eMsg='Unable to connect. Check your internet connection and try again.';
+    else
+      eMsg='Something went wrong: '+e.message+'. Please try again.';
+    document.getElementById('m-result').innerHTML=errHtml(eMsg);
+  }
+  btn.disabled=false;
+  document.getElementById('m-load').style.display='none';
+}
+
+/* ── MATERNAL ── */
+async function checkMaternal(){
+  const who=document.getElementById('mat-who').value,stage=document.getElementById('mat-stage').value,concern=document.getElementById('mat-concern').value;
+  const signs=chips(document.querySelector('#maternal .sg'));
+  if(!who){alert('Please select who this is for.');return}
+  const btn=document.getElementById('mat-btn');btn.disabled=true;
+  document.getElementById('mat-load').style.display='block';
+  document.getElementById('mat-result').innerHTML='';
+  const sys=`You are AkomaHealth, a maternal health AI for Ghana using WHO and GHS protocols. First line must be exactly HIGH RISK, MEDIUM RISK, or LOW RISK. Brief compassionate plain-text explanation (2-3 sentences). Numbered next steps (3-4). If emergency signs present (bleeding, convulsions, no fetal movement, breathing difficulty), classify HIGH RISK and include "Call 112". Do NOT use markdown, asterisks, bold, or horizontal lines. Plain text only. Max 200 words. ${langInstr[appLang]}`;
+  try{
+    const res=await claude(sys,[{role:'user',content:`For:${who}\nStage:${stage||'not specified'}\nSigns:${signs.join(', ')||'None'}\nConcern:${concern||'None'}`}]);
+    const cleaned2=stripMd(res);
+    const r=rlevel(cleaned2);
+    const lbl=r==='high'?'Emergency — Act Now':r==='medium'?'See a Clinician Soon':'Routine Care';
+    document.getElementById('mat-result').innerHTML=rhtml(r,lbl,cleaned2);
+  }catch(e){
+    let eMsg2;
+    if(e.message.includes('auth-error')||e.message.includes('401'))
+      eMsg2='API authentication failed. Add your Anthropic API key to the file, or open this app inside claude.ai.';
+    else if(e.message.includes('Failed to fetch')||e.message.includes('NetworkError'))
+      eMsg2='Unable to connect. Check your internet connection and try again.';
+    else
+      eMsg2='Something went wrong: '+e.message+'. Please try again.';
+    document.getElementById('mat-result').innerHTML=errHtml(eMsg2);
+  }
+  btn.disabled=false;document.getElementById('mat-load').style.display='none';
+}
+
+/* ── ANC PASSPORT ── */
+const ANC_VISITS=[
+  {n:'Visit 1',wk:'Before 12 weeks',tests:'Blood group, Hb, HIV, syphilis, urine dipstick, BP, weight, height',key:'v1'},
+  {n:'Visit 2',wk:'16 weeks',tests:'BP, weight, urine, fetal growth, IPTp-SP dose 1',key:'v2'},
+  {n:'Visit 3',wk:'20 weeks',tests:'Ultrasound scan, BP, urine, fetal movements, anaemia check',key:'v3'},
+  {n:'Visit 4',wk:'24–26 weeks',tests:'BP, weight, urine, fundal height, IPTp-SP dose 2',key:'v4'},
+  {n:'Visit 5',wk:'28 weeks',tests:'Hb check, BP, weight, fetal presentation, anti-D if Rh negative',key:'v5'},
+  {n:'Visit 6',wk:'32 weeks',tests:'BP, weight, urine, fetal growth, IPTp-SP dose 3, birth plan discussion',key:'v6'},
+  {n:'Visit 7',wk:'36 weeks',tests:'BP, weight, fetal presentation, birth readiness, facility confirmation',key:'v7'},
+  {n:'Visit 8',wk:'40 weeks',tests:'Final BP check, fetal position, delivery planning, signs of labour',key:'v8'},
+];
+function openAncModal(key,idx){
+  currentAncVisit=key;
+  const d=ancData[key]||{};
+  document.getElementById('anc-modal-title').textContent='Log — '+ANC_VISITS[idx].n+' ('+ANC_VISITS[idx].wk+')';
+  document.getElementById('anc-date').value=d.date||'';
+  document.getElementById('anc-facility').value=d.facility||'';
+  document.getElementById('anc-notes').value=d.notes||'';
+  document.getElementById('anc-weight').value=d.weight||'';
+  document.getElementById('anc-modal').classList.add('open');
+}
+function closeAncModal(){document.getElementById('anc-modal').classList.remove('open')}
+function saveAncVisit(){
+  if(!currentAncVisit)return;
+  ancData[currentAncVisit]={date:document.getElementById('anc-date').value,facility:document.getElementById('anc-facility').value,notes:document.getElementById('anc-notes').value,weight:document.getElementById('anc-weight').value};
+  localStorage.setItem('anc_data',JSON.stringify(ancData));
+  closeAncModal();renderANC();
+}
+
+/* ── GROWTH TRACKER ── */
+const WHO={
+  M:{med:[3.3,4.5,5.6,6.4,7.0,7.5,7.9,8.3,8.6,8.9,9.2,9.4,9.6,9.9,10.1,10.3,10.5,10.7,10.9,11.1,11.3,11.5,11.8,12.0,12.2,12.4,12.6,12.9,13.1,13.3,13.5,13.7,13.9,14.1,14.3,14.5,14.7,14.9,15.1,15.3,15.4,15.6,15.8,16.0,16.2,16.4,16.6,16.8,17.0,17.2,17.4,17.6,17.8,18.0,18.2,18.4,19.0,19.2,19.5,19.7,20.0],sd:[0.45,0.57,0.64,0.68,0.70,0.72,0.73,0.74,0.75,0.76,0.77,0.78,0.79,0.80,0.81,0.82,0.84,0.85,0.86,0.87,0.88,0.89,0.90,0.91,0.92,0.93,0.94,0.95,0.96,0.97,0.98,0.99,1.00,1.01,1.02,1.03,1.04,1.05,1.06,1.07,1.08,1.09,1.10,1.11,1.12,1.13,1.14,1.15,1.16,1.17,1.18,1.19,1.20,1.21,1.22,1.23,1.30,1.32,1.34,1.36,1.38]},
+  F:{med:[3.2,4.2,5.1,5.8,6.4,6.9,7.3,7.6,7.9,8.2,8.5,8.7,8.9,9.2,9.4,9.6,9.8,10.0,10.2,10.4,10.6,10.9,11.1,11.3,11.5,11.7,11.9,12.1,12.3,12.5,12.7,12.9,13.1,13.3,13.5,13.7,13.9,14.1,14.2,14.4,14.6,14.8,15.0,15.2,15.4,15.6,15.8,16.0,16.2,16.4,16.6,16.8,17.0,17.2,17.4,17.6,18.0,18.2,18.4,18.6,18.8],sd:[0.40,0.50,0.57,0.61,0.64,0.65,0.66,0.67,0.68,0.69,0.70,0.71,0.72,0.73,0.74,0.75,0.77,0.78,0.79,0.80,0.81,0.82,0.83,0.84,0.85,0.86,0.87,0.88,0.89,0.90,0.91,0.92,0.93,0.94,0.95,0.96,0.97,0.98,0.99,1.00,1.01,1.02,1.03,1.04,1.05,1.06,1.07,1.08,1.09,1.10,1.11,1.12,1.13,1.14,1.15,1.16,1.22,1.24,1.26,1.28,1.30]}
+};
+function checkGrowth(){
+  const sex=document.getElementById('g-sex').value,am=parseInt(document.getElementById('g-age').value),wt=parseFloat(document.getElementById('g-weight').value),ht=parseFloat(document.getElementById('g-height').value);
+  if(!sex||isNaN(am)||isNaN(wt)||isNaN(ht)){alert('Please fill in all fields.');return}
+  if(am<0||am>60){alert('Age must be 0–60 months.');return}
+  const med=WHO[sex].med[am],sd=WHO[sex].sd[am],waz=(wt-med)/sd;
+  const bmi=wt/((ht/100)**2);
+  let st='normal',advice='';
+  if(waz<-3||bmi<13){st='severe';advice='Refer to nearest health facility immediately for therapeutic feeding and clinical assessment. Do not delay.'}
+  else if(waz<-2||bmi<15){st='moderate';advice='Visit your nearest CHPS compound for a MUAC measurement and nutrition counselling. Review diet and feeding practices.'}
+  else{advice='Growth is within the healthy range. Continue monthly weighing at your CHPS compound and maintain a balanced diet.'}
+  document.getElementById('g-result').innerHTML=`<div class="rbox ${st}"><div class="rlbl">${rico(st==='severe'?'high':st==='moderate'?'medium':'low')}${st==='severe'?'Severe Concern':st==='moderate'?'Moderate Concern':'Normal Range'}</div><div class="gmet"><div class="gmc"><div class="gmv">${waz.toFixed(1)}</div><div class="gml">Weight-for-Age Z</div></div><div class="gmc"><div class="gmv">${bmi.toFixed(1)}</div><div class="gml">BMI (kg/m²)</div></div></div><div style="margin-top:9px;font-size:12.5px;color:#333;line-height:1.7;font-weight:500">${advice}</div></div>`;
+}
+
+/* ── DOSING CALCULATOR ── */
+const DRUGS={
+  art:{name:'Artemether-Lumefantrine (Coartem)',unit:'tablets',note:'Give with food. 3-day course: 6 doses total (0h, 8h, then twice daily days 2–3).',maxNote:'Do not exceed adult dose of 4 tablets per dose.',calc:(w)=>{if(w<5)return null;if(w<15)return{dose:'1 tablet',freq:'Twice daily × 3 days',detail:'5–14 kg: 1 tab per dose (20/120mg)'};if(w<25)return{dose:'2 tablets',freq:'Twice daily × 3 days',detail:'15–24 kg: 2 tabs per dose'};if(w<35)return{dose:'3 tablets',freq:'Twice daily × 3 days',detail:'25–34 kg: 3 tabs per dose'};return{dose:'4 tablets',freq:'Twice daily × 3 days',detail:'≥35 kg: 4 tabs per dose (adult dose)'}}},
+  para:{name:'Paracetamol (Acetaminophen)',unit:'mg',note:'Dose: 10–15 mg/kg every 4–6 hours as needed. Max 4 doses per 24 hours.',maxNote:'Do not exceed 60 mg/kg/day or 4,000 mg/day in adults.',calc:(w)=>{const lo=Math.round(w*10),hi=Math.round(w*15);return{dose:`${lo}–${hi} mg`,freq:'Every 4–6 hours as needed',detail:`Based on ${w} kg: 10 mg/kg = ${lo}mg, 15 mg/kg = ${hi}mg`}}},
+  amox:{name:'Amoxicillin',unit:'mg',note:'Dose: 25 mg/kg/day in 2 divided doses (12 hourly) for 5–7 days.',maxNote:'Do not exceed 500 mg per dose in children.',calc:(w)=>{const total=Math.round(w*25),dose=Math.round(w*25/2);return{dose:`${dose} mg`,freq:'Every 12 hours × 5–7 days',detail:`Total daily dose: ${total} mg (${w} kg × 25 mg/kg)`}}},
+  cot:{name:'Co-trimoxazole (Septrin)',unit:'mg',note:'Dose: 4 mg/kg trimethoprim component twice daily for 5 days.',maxNote:'Contraindicated in severe renal impairment and first trimester pregnancy.',calc:(w)=>{const dose=Math.round(w*4);return{dose:`${dose} mg TMP`,freq:'Twice daily × 5 days',detail:`Trimethoprim component: ${w} kg × 4 mg/kg = ${dose} mg`}}}
+};
+function selDrug(d,btn){currentDrug=d;document.querySelectorAll('.dt').forEach(b=>b.classList.remove('on'));btn.classList.add('on');calcDose()}
+function calcDose(){
+  const w=parseFloat(document.getElementById('d-weight').value);
+  const out=document.getElementById('dose-out');
+  if(!w||w<3){out.innerHTML='';return}
+  const drug=DRUGS[currentDrug],res=drug.calc(w);
+  if(!res){out.innerHTML='<div class="dose-max">⚠️ Weight too low for standard dosing. Refer to a health facility.</div>';return}
+  out.innerHTML=`<div class="dose-res"><div class="dose-main">${res.dose} <span style="font-size:13px;color:#555;font-weight:500">per dose</span></div><div class="dose-det"><strong>${drug.name}</strong><br/>${res.freq}<br/>${res.detail}</div></div><div class="dose-warn">ℹ️ ${drug.note}</div><div class="dose-max">⚠️ ${drug.maxNote}</div>`;
+}
+
+/* ── CHW VISIT LOG ── */
+function chwTab(t,btn){document.querySelectorAll('.cwt').forEach(b=>b.classList.remove('on'));btn.classList.add('on');document.querySelectorAll('.cwpanel').forEach(p=>p.classList.remove('on'));document.getElementById('cwp-'+t).classList.add('on')}
+function logVisit(){
+  const nm=document.getElementById('chw-name').value.trim();
+  if(!nm){alert('Please enter the patient name.');return}
+  const visit={id:Date.now(),name:nm,age:document.getElementById('chw-age').value,village:document.getElementById('chw-village').value,complaint:document.getElementById('chw-complaint').value,findings:document.getElementById('chw-findings').value,ref:document.getElementById('chw-ref').value,refFac:document.getElementById('chw-ref-fac').value,date:new Date().toLocaleDateString('en-GB')};
+  chwVisits.unshift(visit);localStorage.setItem('chw_visits',JSON.stringify(chwVisits));
+  ['chw-name','chw-age','chw-village','chw-complaint','chw-findings','chw-ref-fac'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('chw-ref').value='no';
+  alert('Visit saved! View in Visit History.');
+}
+function renderHistory(){
+  const el=document.getElementById('chw-history-list');
+  if(!chwVisits.length){el.innerHTML='<div style="font-size:13px;color:#999;text-align:center;padding:2rem;font-weight:500">No visits logged yet.<br/>Log your first visit using the form.</div>';return}
+  el.innerHTML=chwVisits.map(v=>`<div class="vc"><div class="vc-nm">${v.name}</div><div class="vc-meta">${v.age||'Age not recorded'} · ${v.village||'Location not recorded'} · ${v.date}</div><div class="vc-sum"><strong>Complaint:</strong> ${v.complaint||'—'}<br/><strong>Findings:</strong> ${v.findings||'—'}</div>${v.ref!=='no'?`<div class="ref-badge">${v.ref==='urgent'?'🚨 URGENT':'📋'} Referral: ${v.refFac||'Nearest facility'}</div><button class="pref-btn" onclick="printRef(${v.id})">Print Referral Note</button>`:''}</div>`).join('');
+}
+function printRef(id){
+  const v=chwVisits.find(x=>x.id===id);if(!v)return;
+  const w=window.open('','_blank','width=600,height=700');
+  w.document.write(`<!DOCTYPE html><html><head><title>Referral Note</title><style>body{font-family:Arial,sans-serif;padding:30px;max-width:500px}h1{color:#E65100;font-size:18px;border-bottom:2px solid #E65100;padding-bottom:8px}h2{color:#333;font-size:14px;margin-top:16px}p{font-size:13px;color:#444;line-height:1.6;margin:4px 0}.urgent{background:#FFEBEE;border:2px solid #C62828;padding:10px;border-radius:8px;color:#C62828;font-weight:bold;margin-bottom:16px}.footer{margin-top:24px;font-size:11px;color:#999;border-top:1px solid #ddd;padding-top:10px}</style></head><body>${v.ref==='urgent'?'<div class="urgent">🚨 URGENT REFERRAL — Please see this patient immediately</div>':''}<h1>AkomaHealth Referral Note</h1><h2>Patient Information</h2><p><strong>Name:</strong> ${v.name}</p><p><strong>Age/Sex:</strong> ${v.age||'Not recorded'}</p><p><strong>Community:</strong> ${v.village||'Not recorded'}</p><p><strong>Date:</strong> ${v.date}</p><h2>Clinical Information</h2><p><strong>Chief Complaint:</strong> ${v.complaint||'—'}</p><p><strong>Findings &amp; Action Taken:</strong> ${v.findings||'—'}</p><h2>Referral</h2><p><strong>Refer to:</strong> ${v.refFac||'Nearest appropriate health facility'}</p><p><strong>Referral type:</strong> ${v.ref==='urgent'?'URGENT — same day':'Routine referral'}</p><div class="footer">Generated by AkomaHealth · Ghana Health Service aligned · Not a substitute for clinical assessment</div>
+
+  <!--
+    Script load order matters:
+      1. i18n.js      — TRANSLATIONS object + applyLang() must exist before app.js runs
+      2. app.js       — Core clinical modules (references TRANSLATIONS + applyLang)
+      3. mama-circle.js — Community feature (references go(), claude(), applyLang())
+  -->
+  <script src="js/i18n.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/mama-circle.js"></script>
+
+</body>
+</html>
