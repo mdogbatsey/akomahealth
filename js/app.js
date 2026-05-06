@@ -1,14 +1,7 @@
 /**
  * AkomaHealth — Core Application Logic
- * ─────────────────────────────────────────────────────
- * Covers: navigation, SOS, voice input, AI client,
- * malaria checker, maternal triage, ANC passport,
- * growth tracker, dosing calculator, CHW log,
- * outbreak map, health Q&A chat, facility finder.
- *
- * API Key (standalone only):
- *   Find: const API_KEY = '';
- *   Paste your Anthropic key. Leave empty in claude.ai.
+ * API Key: find 'const API_KEY' and paste your Anthropic key.
+ * Leave empty when running inside claude.ai.
  */
 
 const API_KEY = ''; /* ← Add your Anthropic API key: 'sk-ant-...' */
