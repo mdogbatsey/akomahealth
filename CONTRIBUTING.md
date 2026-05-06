@@ -490,7 +490,7 @@ Keep these consistent with the existing codebase:
 
 - **GitHub Issues** — for bugs, feature requests, questions about the codebase
 - **Pull Request comments** — for feedback on specific lines of code
-- **Email** — theo@zappling.net — for urgent clinical or research questions
+- **Email** — theophiluskwofie67@gmail.com — for urgent clinical or research questions
 
 When filing an issue, include:
 1. What you were trying to do
@@ -502,4 +502,4 @@ When filing an issue, include:
 
 *AkomaHealth is built for the people of Ghana. Every contribution — however small — makes a difference. Thank you for being part of this.*
 
-— Dr. Theophilus Kwofie, Founder
+— Dr. Theophilus Kwofie, Innovator
